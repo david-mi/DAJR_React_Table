@@ -1,4 +1,5 @@
-import { useTable, useSortBy } from "react-table"
+import { useTable, useSortBy, useGlobalFilter } from "react-table"
+import GlobalFilter from "./GlobalFilter"
 
 interface Props {
   data: {
@@ -17,17 +18,22 @@ function Table({ columns, data }: Props) {
     headerGroups,
     rows,
     prepareRow,
+    state,
+    setGlobalFilter
   } = useTable(
     {
       columns,
       data,
     },
-    useSortBy,
+    useGlobalFilter,
+    useSortBy
   )
 
+  const { globalFilter } = state
 
   return (
     <>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
