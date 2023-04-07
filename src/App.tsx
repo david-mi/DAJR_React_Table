@@ -1,8 +1,9 @@
-const App = () => {
+import { data, columns } from "./dataTable"
+import Table from "./Table"
 
+function App() {
   return (
-    <div className="app">
-    </div>
+    <Table columns={columns} data={data} />
   )
 }
 
