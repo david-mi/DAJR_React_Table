@@ -1,4 +1,4 @@
-import { useTable, useSortBy, useGlobalFilter } from "react-table"
+import { useTable, useSortBy, useGlobalFilter, usePagination } from "react-table"
 import GlobalFilter from "./GlobalFilter"
 
 interface Props {
@@ -16,20 +16,26 @@ function Table({ columns, data }: Props) {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
     prepareRow,
     state,
-    setGlobalFilter
+    pageOptions,
+    nextPage,
+    previousPage,
+    setGlobalFilter,
+    canNextPage,
+    canPreviousPage
   } = useTable(
     {
       columns,
       data,
     },
     useGlobalFilter,
-    useSortBy
+    useSortBy,
+    usePagination
   )
 
-  const { globalFilter } = state
+  const { globalFilter, pageIndex } = state
 
   return (
     <>
@@ -55,7 +61,7 @@ function Table({ columns, data }: Props) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {page.map((row, i) => {
             prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
@@ -67,6 +73,9 @@ function Table({ columns, data }: Props) {
           })}
         </tbody>
       </table>
+      <button onClick={previousPage} disabled={!canPreviousPage}>Previous</button>
+      <button onClick={nextPage} disabled={!canNextPage}>Next</button>
+      <span>Page {pageIndex + 1} of {pageOptions.length}</span>
     </>
   )
 }

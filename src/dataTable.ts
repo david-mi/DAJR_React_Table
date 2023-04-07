@@ -31,6 +31,138 @@ export const data = [
     "city": "Caen",
     "state": "CA",
     "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
+  },
+  {
+    "firstName": "Alphonse",
+    "lastName": "Machin",
+    "dateOfBirth": "04/18/2001",
+    "startDate": "04/09/2019",
+    "department": "Legal",
+    "street": "Azuria",
+    "city": "Caen",
+    "state": "CA",
+    "zipCode": "15004"
   }
 ]
 
