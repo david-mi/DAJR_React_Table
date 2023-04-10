@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react"
 import type { Column, Row } from "./types"
 
 interface Props<T extends string> {
@@ -6,8 +7,29 @@ interface Props<T extends string> {
 }
 
 function Table<T extends string>({ columns, rows }: Props<T>) {
+  const [rowsData, setRowsData] = useState<Row<T>[]>(rows)
+  const rowsArrayValues = useMemo<T[][]>(() => {
+    return rowsData.map(Object.values)
+  }, [rowsData])
+
   return (
-    <div>Table</div>
+    <table>
+      <thead>
+        <tr>
+          {columns.map(({ title, key }) => {
+            return <th key={key}>{title}</th>
+          })}
+        </tr>
+      </thead>
+
+      <tbody>
+        {rowsArrayValues.map((dataValue, index) => (
+          <tr key={index}>
+            {dataValue.map(data => <td key={data}>{data}</td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )
 }
 
