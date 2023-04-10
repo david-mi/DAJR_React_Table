@@ -1,5 +1,7 @@
 import { useState, useMemo } from "react"
 import type { Column, Row } from "./types"
+import Thead from "./Thead/Thead"
+import Tbody from "./Tbody/Tbody"
 
 interface Props<T extends string> {
   columns: Column<T>[],
@@ -14,21 +16,8 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
 
   return (
     <table>
-      <thead>
-        <tr>
-          {columns.map(({ title, key }) => {
-            return <th key={key}>{title}</th>
-          })}
-        </tr>
-      </thead>
-
-      <tbody>
-        {rowsArrayValues.map((dataValue, index) => (
-          <tr key={index}>
-            {dataValue.map(data => <td key={data}>{data}</td>)}
-          </tr>
-        ))}
-      </tbody>
+      <Thead columns={columns} setRowsData={setRowsData} />
+      <Tbody rowsArrayValues={rowsArrayValues} />
     </table>
   )
 }
