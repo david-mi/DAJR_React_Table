@@ -1,9 +1,13 @@
-import { data, columns } from "../lib/dataTable"
+import type { Employee } from "./dataTable"
+import { columns, employees } from "./dataTable"
 import Table from "../lib/Table"
 
 function App() {
   return (
-    <Table />
+    <Table<keyof Employee>
+      columns={columns}
+      rows={employees}
+    />
   )
 }
 
