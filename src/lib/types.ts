@@ -1,6 +1,6 @@
 export interface Column<T extends string> {
   title: string,
-  key: T
+  accessor: T
 }
 
 export type Row<T extends string> = {

@@ -1,15 +1,26 @@
+import type { Column } from "../types"
+import type { RowsUniqueIds } from "../Table"
+
 interface Props<T extends string> {
-  rowsArrayValues: T[][]
+  /** Array of rows objects with properties to use on rows */
+  rowsData: RowsUniqueIds<T>
+  /** Array of columns objects with properties to use to create columns */
+  columns: Column<T>[]
 }
 
-function Tbody<T extends string>({ rowsArrayValues }: Props<T>) {
+/** Display each Rows */
+
+function Tbody<T extends string>({ rowsData, columns }: Props<T>) {
   return (
     <tbody>
-      {rowsArrayValues.map((dataValue, index) => (
-        <tr key={index}>
-          {dataValue.map(data => <td key={data}>{data}</td>)}
+      {rowsData.map(({ uuid, ...dataValue }) => (
+        <tr key={uuid}>
+          {columns.map(({ accessor }) => {
+            return <td key={accessor}>{dataValue[accessor]}</td>
+          })}
         </tr>
-      ))}
+      ))
+      }
     </tbody>
   )
 }

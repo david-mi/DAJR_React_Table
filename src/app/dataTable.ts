@@ -1,5 +1,5 @@
 import generateEmployees from "employees-generator"
-import type { Column } from "../lib/Table"
+import type { Column } from "../lib/types"
 
 export interface Employee {
   firstName: string
@@ -13,43 +13,45 @@ export interface Employee {
   zipCode: number
 }
 
-export const employees = generateEmployees<Employee>({ amount: 2 })
+export const employees = generateEmployees<Employee>({
+  amount: 100
+})
 
 export const columns: Column<keyof Employee>[] = [
   {
     title: "First Name",
-    key: "firstName"
+    accessor: "firstName"
   },
   {
     title: "Last Name",
-    key: "lastName"
+    accessor: "lastName"
   },
   {
     title: "Start Date",
-    key: "startDate"
+    accessor: "startDate"
   },
   {
     title: "Department",
-    key: "department"
+    accessor: "department"
   },
   {
     title: "Date of Birth",
-    key: "birthDate"
+    accessor: "birthDate"
   },
   {
     title: "Street",
-    key: "street"
-  },
-  {
-    title: "City",
-    key: "city"
+    accessor: "street"
   },
   {
     title: "State",
-    key: "state"
+    accessor: "state"
+  },
+  {
+    title: "City",
+    accessor: "city"
   },
   {
     title: "Zip Code",
-    key: "zipCode"
+    accessor: "zipCode"
   }
 ]

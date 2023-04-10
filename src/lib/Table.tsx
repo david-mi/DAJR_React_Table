@@ -8,16 +8,48 @@ interface Props<T extends string> {
   rows: Row<T>[]
 }
 
+export type RowsUniqueIds<T extends string> = ({
+  /** uuid generated id */
+  uuid: string
+} & Row<T>)[]
+
+export interface SortState<T> {
+  type: "ASC" | "DESC" | "NONE"
+  column: keyof T | ""
+}
+
 function Table<T extends string>({ columns, rows }: Props<T>) {
-  const [rowsData, setRowsData] = useState<Row<T>[]>(rows)
-  const rowsArrayValues = useMemo<T[][]>(() => {
-    return rowsData.map(Object.values)
-  }, [rowsData])
+  const rowsData = useMemo<RowsUniqueIds<T>>(() => {
+    return rows.map((row) => {
+      return { ...row, uuid: crypto.randomUUID() }
+    })
+  }, [])
+
+  const [sort, setSort] = useState<SortState<T>>({
+    type: "NONE",
+    column: ""
+  })
+
+  const dataToShow = sortData()
+
+  function sortData() {
+    if (sort.type === "NONE") return rowsData
+
+    return [...rowsData].sort((a, b) => {
+      const [firstValue, secondValue] = sort.type === "ASC"
+        ? [a[sort.column], b[sort.column]]
+        : [b[sort.column], a[sort.column]]
+
+      return typeof firstValue === "string" && typeof secondValue === "string"
+        ? firstValue.localeCompare(secondValue, undefined, { sensitivity: "base", numeric: true })
+        : (firstValue as number) - (secondValue as number)
+    })
+  }
 
   return (
     <table>
-      <Thead columns={columns} setRowsData={setRowsData} />
-      <Tbody rowsArrayValues={rowsArrayValues} />
+      <Thead sort={sort} setSort={setSort} columns={columns} />
+      <Tbody rowsData={dataToShow} columns={columns} />
     </table>
   )
 }
