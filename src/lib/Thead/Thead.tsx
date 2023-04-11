@@ -1,6 +1,6 @@
 import type { Column } from "../types"
 import type { Dispatch, SetStateAction, MouseEvent } from "react"
-import type { SortState } from "../Table"
+import type { SortState } from "../useTable"
 import SortIcon from "./Th/SortIcon/SortIcon"
 
 enum SORT_SWITCH {
