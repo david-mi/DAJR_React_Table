@@ -1,4 +1,3 @@
-import { useState, useMemo } from "react"
 import type { Column, Row } from "./types"
 import Thead from "./Thead/Thead"
 import Tbody from "./Tbody/Tbody"

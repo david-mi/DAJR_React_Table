@@ -1,7 +1,7 @@
 import type { Column } from "../types"
 import type { Dispatch, SetStateAction, MouseEvent } from "react"
 import type { SortState } from "../useTable"
-import SortIcon from "./Th/SortIcon/SortIcon"
+import SortIcon from "./SortIcon/SortIcon"
 
 enum SORT_SWITCH {
   NONE = "ASC",
@@ -16,6 +16,14 @@ interface Props<T extends string> {
 }
 
 function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
+
+  /**
+   * Gets called when clicking on one column head
+   * 
+   * - Update {@link sort} state
+   * - If clicked head column differs from the previous clicked one, set sort type to ascending
+   * - else, define sort type based of current sort type and {@link SORT_SWITCH}
+   */
 
   function handleColumnHeadClick({ target }: MouseEvent) {
     const clickedColumnHead = (target as HTMLTableCellElement).dataset.column as keyof T

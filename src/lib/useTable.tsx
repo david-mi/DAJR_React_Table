@@ -14,32 +14,34 @@ function useTable<T extends string>(rows: Row<T>[]) {
     })
   }, [])
 
-  const [rowsData, setRowsData] = useState(initialData)
-
   const [sort, setSort] = useState<SortState<T>>({
     type: "NONE",
     column: ""
   })
 
+  /**
+   * Sort datas based on parameters 
+   * 
+   * - if {@link sort.type} is equal to "NONE" returns immediately
+   * - if {@link sort.type} is equal to "ASC", sort in ascending order
+   * - if {@link sort.type} is equal to "DESC", sort in descending order
+   */
+
   const sortData = useCallback(() => {
-    return function () {
-      if (sort.type === "NONE") return initialData
+    if (sort.type === "NONE") return initialData
 
-      return [...initialData].sort((a, b) => {
-        const [firstValue, secondValue] = sort.type === "ASC"
-          ? [a[sort.column], b[sort.column]]
-          : [b[sort.column], a[sort.column]]
+    return [...initialData].sort((a, b) => {
+      const [firstValue, secondValue] = sort.type === "ASC"
+        ? [a[sort.column], b[sort.column]]
+        : [b[sort.column], a[sort.column]]
 
-        return typeof firstValue === "string" && typeof secondValue === "string"
-          ? firstValue.localeCompare(secondValue, undefined, { sensitivity: "base", numeric: true })
-          : (firstValue as number) - (secondValue as number)
-      })
-    }
+      return typeof firstValue === "string" && typeof secondValue === "string"
+        ? firstValue.localeCompare(secondValue, undefined, { sensitivity: "base", numeric: true })
+        : (firstValue as number) - (secondValue as number)
+    })
   }, [sort])
 
-  useEffect(() => {
-    setRowsData(sortData())
-  }, [sort])
+  const rowsData = sortData()
 
   return {
     rowsData,

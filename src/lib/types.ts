@@ -1,4 +1,4 @@
-export interface Column<T extends string> {
+export interface Column<T> {
   title: string,
   accessor: T
 }
