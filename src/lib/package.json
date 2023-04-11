@@ -1,0 +1,26 @@
+{
+  "name": "david-mi-react-table",
+  "private": false,
+  "version": "1.0.0",
+  "description": "React table package",
+  "type": "module",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david-mi/React_Table_Package.git"
+  },
+  "keywords": [
+    "react",
+    "table"
+  ],
+  "author": "david-mi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david-mi/React_Table_Package/issues"
+  },
+  "homepage": "https://github.com/david-mi/React_Table_Package#readme"
+}
