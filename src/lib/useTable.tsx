@@ -18,6 +18,7 @@ function useTable<T extends string>(rows: Row<T>[]) {
     type: "NONE",
     column: ""
   })
+  const [searchInput, setSearchInput] = useState("")
 
   /**
    * Sort datas based on parameters 
@@ -27,10 +28,10 @@ function useTable<T extends string>(rows: Row<T>[]) {
    * - if {@link sort.type} is equal to "DESC", sort in descending order
    */
 
-  const sortData = useCallback(() => {
-    if (sort.type === "NONE") return initialData
+  const sortData = useCallback((data: RowsUniqueIds<T>) => {
+    if (sort.type === "NONE") return data
 
-    return [...initialData].sort((a, b) => {
+    return [...data].sort((a, b) => {
       const [firstValue, secondValue] = sort.type === "ASC"
         ? [a[sort.column], b[sort.column]]
         : [b[sort.column], a[sort.column]]
@@ -41,12 +42,35 @@ function useTable<T extends string>(rows: Row<T>[]) {
     })
   }, [sort])
 
-  const rowsData = sortData()
+
+  /**
+   * Filter datas based on parameters
+   * 
+   * - if {@link searchInput} is included in one of the rows, filters returns true
+   * - uuid property is being ignored during search
+   */
+
+  const filterData = useCallback((data: RowsUniqueIds<T>) => {
+    return data.filter(({ uuid, ...row }) => {
+      return Object
+        .values<string | number>(row)
+        .find((value) => {
+          return typeof value === "number"
+            ? String(value).includes(searchInput)
+            : value.toLowerCase().includes(searchInput)
+        })
+    })
+  }, [searchInput])
+
+  const rowsData = filterData(sortData(initialData))
 
   return {
     rowsData,
     sort,
-    setSort
+    setSort,
+    searchInput,
+    setSearchInput,
+    noResults: rowsData.length === 0
   }
 }
 
