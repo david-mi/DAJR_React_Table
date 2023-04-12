@@ -1,21 +1,5 @@
-import generateEmployees from "employees-generator"
 import type { Column } from "../lib/types"
-
-export interface Employee {
-  firstName: string
-  lastName: string,
-  startDate: string,
-  department: string,
-  birthDate: string,
-  state: string,
-  street: string,
-  city: string,
-  zipCode: number
-}
-
-export const employees = generateEmployees<Employee>({
-  amount: 100
-})
+import type { Employee } from "../app/types"
 
 export const columns: Column<keyof Employee>[] = [
   {
