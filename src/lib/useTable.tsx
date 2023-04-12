@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect, useCallback } from "react"
+import { useState, useMemo, useCallback } from "react"
 import type { RowsUniqueIds } from "./Table"
 import type { Row } from "./types"
+import { getRandomId } from "./utils"
 
 export interface SortState<T> {
   type: "ASC" | "DESC" | "NONE"
@@ -10,7 +11,7 @@ export interface SortState<T> {
 function useTable<T extends string>(rows: Row<T>[]) {
   const initialData = useMemo<RowsUniqueIds<T>>(() => {
     return rows.map((row) => {
-      return { ...row, uuid: crypto.randomUUID() }
+      return { ...row, uuid: getRandomId() }
     })
   }, [])
 
