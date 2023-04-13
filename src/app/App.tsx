@@ -1,10 +1,12 @@
-import type { Employee } from "./dataTable"
-import { columns, employees } from "./dataTable"
+import { columns, Data } from "../__mocks__/"
+import generateEmployees from "employees-generator/generate"
 import Table from "../lib/Table"
+
+const employees = generateEmployees<Data>({ amount: 100 })
 
 function App() {
   return (
-    <Table<keyof Employee>
+    <Table<keyof Data>
       columns={columns}
       rows={employees}
     />

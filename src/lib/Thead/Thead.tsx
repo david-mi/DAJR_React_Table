@@ -43,6 +43,7 @@ function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
             key={accessor}
             data-column={accessor}
             onClick={handleColumnHeadClick}
+            data-testid="thead-th"
           >
             {title}
             <SortIcon sort={sort} accessor={accessor} />

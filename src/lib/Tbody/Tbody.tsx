@@ -14,9 +14,16 @@ function Tbody<T extends string>({ rowsData, columns }: Props<T>) {
   return (
     <tbody>
       {rowsData.map(({ uuid, ...dataValue }) => (
-        <tr key={uuid}>
+        <tr key={uuid} data-testid="tbody-row">
           {columns.map(({ accessor }) => {
-            return <td key={accessor}>{dataValue[accessor]}</td>
+            return (
+              <td
+                key={accessor}
+                data-testid="tbody-cell"
+              >
+                {dataValue[accessor]}
+              </td>
+            )
           })}
         </tr>
       ))
