@@ -1,6 +1,5 @@
 
 import { getNodeText, render, screen, fireEvent } from "@testing-library/react";
-import { vi } from "vitest";
 import { columns as mockColumns, rows as mockRows } from "../__mocks__"
 import type { Data } from "../__mocks__";
 import { Table } from "../lib";
@@ -135,6 +134,64 @@ describe("Given I want to sort rows", () => {
       const secondColumnTableRows = getCellsDataFromTargetColumn(1)
 
       expect(secondColumnTableRows).toEqual(rowsAccessorDataFromSecondColumnInAscendingOrder)
+    })
+  })
+})
+
+describe("Given I want to filter rows based on input search value", () => {
+  describe("When I'm writing 'Sales' in input", () => {
+    test("Then 2 rows should be displayed in the table with correct data", () => {
+      const inputElement = screen.getByTestId("search-input")
+      fireEvent.change(inputElement, { target: { value: "Sales" } })
+      const rowsElements = screen.getAllByTestId("tbody-row")
+
+      const tbodyCellsText = screen
+        .getAllByTestId("tbody-cell")
+        .map(getNodeText)
+
+      const filteredRowsKeys = [
+        "Basanti", "Dan", "2019-10-28", "Sales", "1997-01-19", "Washington Blvd", "KY", "Durham", "94588",
+        "Kim", "Mehmet", "2020-02-11", "Sales", "1965-02-18", "Sunset Strip", "UT", "Lexington", "55415"
+      ];
+
+      expect(tbodyCellsText).toEqual(filteredRowsKeys)
+      expect(rowsElements.length).toBe(2)
+    })
+  })
+
+  describe("When I'm writing 'Sales' in input, then remove it", () => {
+    test("Then number of displayed rows should be equal to mockRows length", () => {
+      const inputElement = screen.getByTestId("search-input")
+      fireEvent.change(inputElement, { target: { value: "Sales" } })
+      fireEvent.change(inputElement, { target: { value: "" } })
+
+      const rowsElements = screen.getAllByTestId("tbody-row")
+      expect(rowsElements.length).toBe(mockRows.length)
+    })
+  })
+})
+
+describe("Given I want to sort rows, then filter them based on input search value", () => {
+  describe("When i'm cliking on 'Date of Birth' column head, then typing 'sunset' in search input", () => {
+    test("Then 3 rows should be displayed in the table with correct data in ascending birthDate order", () => {
+      const dateOfBirthColumnHead = screen.getAllByTestId("thead-th")[4]
+      expect(dateOfBirthColumnHead).toHaveTextContent("Date of Birth")
+      fireEvent.click(dateOfBirthColumnHead)
+
+      const inputElement = screen.getByTestId("search-input")
+      fireEvent.change(inputElement, { target: { value: "sunset" } })
+
+      const tbodyCellsText = screen
+        .getAllByTestId("tbody-cell")
+        .map(getNodeText)
+
+      const filteredRowsInAscendingBirthDateOrderKeys = [
+        "Kim", "Mehmet", "2020-02-11", "Sales", "1965-02-18", "Sunset Strip", "UT", "Lexington", "55415",
+        "Herbert", "Jorge", "2020-06-07", "Engineering", "1982-04-03", "Sunset Plaza Dr", "KS", "Fort Wayne", "87505",
+        "Emine", "Olivier", "2022-05-15", "Engineering", "1985-04-01", "Sunset Blvd", "ND", "San Diego", "33950"
+      ];
+
+      expect(tbodyCellsText).toEqual(filteredRowsInAscendingBirthDateOrderKeys)
     })
   })
 })

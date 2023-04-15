@@ -14,7 +14,7 @@ function Search({ setSearchInput }: Props) {
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input type="text" onChange={handleSearchInput} />
+      <input type="text" onChange={handleSearchInput} data-testid="search-input" />
     </div>
   )
 }
