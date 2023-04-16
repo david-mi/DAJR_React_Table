@@ -3,6 +3,7 @@ import Thead from "./Thead/Thead"
 import Tbody from "./Tbody/Tbody"
 import Search from "./Search/Search"
 import useTable from "./useTable"
+import usePagination from "./usePagination"
 import { checkTableProps } from "./PropsError/checkTableProps"
 import PropsError from "./PropsError/PropsError"
 
@@ -26,14 +27,20 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
     rowsData,
     sort,
     setSort,
+    searchInput,
     setSearchInput,
-    noResults,
+    noResults
+  } = useTable<T>(rows)
+
+  const {
     hasNextPage,
     hasPreviousPage,
     numberOfPages,
     currentPage,
-    setCurrentPage
-  } = useTable<T>(rows)
+    paginatedData,
+    goToNextPage,
+    goToPreviousPage
+  } = usePagination<T>(rowsData, sort, searchInput)
 
   return (
     <div>
@@ -44,11 +51,11 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
           <>
             <table>
               <Thead sort={sort} setSort={setSort} columns={columns} />
-              <Tbody rowsData={rowsData} columns={columns} />
+              <Tbody rowsData={paginatedData} columns={columns} />
             </table>
             <p>Page: {currentPage + 1} / {numberOfPages}</p>
-            <button disabled={!hasPreviousPage} onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
-            <button disabled={!hasNextPage} onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+            <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
+            <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
           </>
         )
       }
