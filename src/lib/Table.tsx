@@ -27,7 +27,12 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
     sort,
     setSort,
     setSearchInput,
-    noResults
+    noResults,
+    hasNextPage,
+    hasPreviousPage,
+    numberOfPages,
+    currentPage,
+    setCurrentPage
   } = useTable<T>(rows)
 
   return (
@@ -36,10 +41,15 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
       {noResults
         ? <h1>No results found.</h1>
         : (
-          <table>
-            <Thead sort={sort} setSort={setSort} columns={columns} />
-            <Tbody rowsData={rowsData} columns={columns} />
-          </table>
+          <>
+            <table>
+              <Thead sort={sort} setSort={setSort} columns={columns} />
+              <Tbody rowsData={rowsData} columns={columns} />
+            </table>
+            <p>Page: {currentPage + 1} / {numberOfPages}</p>
+            <button disabled={!hasPreviousPage} onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
+            <button disabled={!hasNextPage} onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+          </>
         )
       }
     </div>

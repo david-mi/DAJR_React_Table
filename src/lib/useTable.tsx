@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react"
+import { useState, useMemo, useCallback, useReducer } from "react"
 import type { RowsUniqueIds } from "./Table"
 import type { Row } from "./types"
 import { getRandomId } from "./utils"
@@ -20,6 +20,37 @@ function useTable<T extends string>(rows: Row<T>[]) {
     column: ""
   })
   const [searchInput, setSearchInput] = useState("")
+
+  const [pageSize, setPageSize] = useState(4)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [hasNextPage, setHasNextPage] = useState(checkIfNextPageExist(initialData))
+  const [hasPreviousPage, setHasPreviousPage] = useState(false)
+  const [numberOfPages, setNumberOfPages] = useState(getNumberOfPages(initialData))
+
+  const paginateData = useCallback((data: RowsUniqueIds<T>) => {
+    const dataSliceStart = currentPage * pageSize
+    const dataSliceEnd = dataSliceStart + pageSize
+    console.log(dataSliceEnd)
+
+    setHasNextPage(checkIfNextPageExist(data))
+    setHasPreviousPage(checkIfPreviousPageExist())
+    setNumberOfPages(getNumberOfPages(data))
+
+    return data.slice(dataSliceStart, dataSliceEnd)
+  }, [currentPage])
+
+  function checkIfNextPageExist(data: RowsUniqueIds<T>) {
+    const nextPageStartInData = (currentPage + 1) * pageSize
+    return data.length > nextPageStartInData
+  }
+
+  function checkIfPreviousPageExist() {
+    return currentPage - 1 >= 0
+  }
+
+  function getNumberOfPages(data) {
+    return Math.ceil(data.length / pageSize)
+  }
 
   /**
    * Sort datas based on parameters 
@@ -43,7 +74,6 @@ function useTable<T extends string>(rows: Row<T>[]) {
     })
   }, [sort])
 
-
   /**
    * Filter datas based on parameters
    * 
@@ -63,7 +93,10 @@ function useTable<T extends string>(rows: Row<T>[]) {
     })
   }, [searchInput])
 
-  const rowsData = filterData(sortData(initialData))
+
+  const rowsData = useMemo(() => {
+    return paginateData(filterData(sortData(initialData)))
+  }, [sort, searchInput, currentPage])
 
   return {
     rowsData,
@@ -71,7 +104,12 @@ function useTable<T extends string>(rows: Row<T>[]) {
     setSort,
     searchInput,
     setSearchInput,
-    noResults: rowsData.length === 0
+    noResults: rowsData.length === 0,
+    hasNextPage,
+    hasPreviousPage,
+    numberOfPages,
+    currentPage,
+    setCurrentPage
   }
 }
 
