@@ -6,6 +6,8 @@ import useTable from "./useTable"
 import usePagination from "./usePagination"
 import { checkTableProps } from "./PropsError/checkTableProps"
 import PropsError from "./PropsError/PropsError"
+import SelectPagesSize from "./SelectPageSize/SelectPageSize"
+import PageNavigation from "./PageNavigation/PageNavigation"
 
 export type RowsUniqueIds<T extends string> = ({
   /** uuid generated id */
@@ -33,36 +35,24 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
   } = useTable<T>(rows)
 
   const {
-    hasNextPage,
-    hasPreviousPage,
-    pagesNumber,
-    currentPage,
-    paginatedData,
-    goToNextPage,
     updatePageSize,
-    goToPreviousPage
+    paginatedData,
+    ...pageNavigation
   } = usePagination<T>(rowsData, sort, searchInput)
 
   return (
     <div>
+      <SelectPagesSize updatePageSize={updatePageSize} />
       <Search setSearchInput={setSearchInput} />
       {noResults
         ? <h1>No results found.</h1>
         : (
           <>
-            <select name="pageSize" id="pageSize" onChange={updatePageSize}>
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
             <table>
               <Thead sort={sort} setSort={setSort} columns={columns} />
               <Tbody rowsData={paginatedData} columns={columns} />
             </table>
-            <p>Page: {currentPage + 1} / {pagesNumber}</p>
-            <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
-            <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
+            <PageNavigation {...pageNavigation} />
           </>
         )
       }
