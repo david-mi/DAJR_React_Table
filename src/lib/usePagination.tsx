@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import type { ChangeEvent } from "react"
 import type { RowsUniqueIds } from "./Table"
 import type { SortState } from "./useTable"
 
@@ -7,9 +8,9 @@ function usePagination<T extends string>(
   sort: SortState<T>,
   searchInput: string
 ) {
-  const [pageSize, setPageSize] = useState(4)
+  const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(0)
-  const [numberOfPages, setNumberOfPages] = useState(getNumberOfPages(rows))
+  const [pagesNumber, setPagesNumber] = useState(getNumberOfPages(rows))
   const [hasNextPage, setHasNextPage] = useState(checkIfNextPageExist(rows))
   const [hasPreviousPage, setHasPreviousPage] = useState(false)
 
@@ -21,15 +22,15 @@ function usePagination<T extends string>(
 
     setHasNextPage(checkIfNextPageExist(rows))
     setHasPreviousPage(checkIfPreviousPageExist())
-    setNumberOfPages(getNumberOfPages(rows))
+    setPagesNumber(getNumberOfPages(rows))
     setPaginatedRows(rows.slice(dataSliceStart, dataSliceEnd))
-  }, [rows, currentPage])
+  }, [rows, currentPage, pageSize])
 
   useEffect(() => {
     if (currentPage !== 0) {
       setCurrentPage(0)
     }
-  }, [sort, searchInput])
+  }, [sort, searchInput, pageSize])
 
   function goToNextPage() {
     setCurrentPage((previousPage) => previousPage + 1)
@@ -48,6 +49,11 @@ function usePagination<T extends string>(
     return currentPage - 1 >= 0
   }
 
+  function updatePageSize({ target }: ChangeEvent) {
+    const selectNumberValue = parseInt((target as HTMLSelectElement).value, 10)
+    setPageSize(selectNumberValue)
+  }
+
   function getNumberOfPages(data: RowsUniqueIds<T>) {
     return Math.ceil(data.length / pageSize)
   }
@@ -56,7 +62,8 @@ function usePagination<T extends string>(
     paginatedData: paginatedRows,
     hasNextPage,
     hasPreviousPage,
-    numberOfPages,
+    pagesNumber,
+    updatePageSize,
     currentPage,
     goToNextPage,
     goToPreviousPage

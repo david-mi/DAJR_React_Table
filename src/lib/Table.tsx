@@ -35,10 +35,11 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
   const {
     hasNextPage,
     hasPreviousPage,
-    numberOfPages,
+    pagesNumber,
     currentPage,
     paginatedData,
     goToNextPage,
+    updatePageSize,
     goToPreviousPage
   } = usePagination<T>(rowsData, sort, searchInput)
 
@@ -49,11 +50,17 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
         ? <h1>No results found.</h1>
         : (
           <>
+            <select name="pageSize" id="pageSize" onChange={updatePageSize}>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
             <table>
               <Thead sort={sort} setSort={setSort} columns={columns} />
               <Tbody rowsData={paginatedData} columns={columns} />
             </table>
-            <p>Page: {currentPage + 1} / {numberOfPages}</p>
+            <p>Page: {currentPage + 1} / {pagesNumber}</p>
             <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
             <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
           </>
