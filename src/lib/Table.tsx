@@ -31,7 +31,8 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
     setSort,
     searchInput,
     setSearchInput,
-    noResults
+    noResults,
+    filteredDataLength
   } = useTable<T>(rows)
 
   const {
@@ -47,15 +48,19 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
       {noResults
         ? <h1>No results found.</h1>
         : (
-          <>
-            <table>
-              <Thead sort={sort} setSort={setSort} columns={columns} />
-              <Tbody rowsData={paginatedData} columns={columns} />
-            </table>
-            <PageNavigation {...pageNavigation} />
-          </>
+          <table>
+            <Thead sort={sort} setSort={setSort} columns={columns} />
+            <Tbody rowsData={paginatedData} columns={columns} />
+          </table>
         )
       }
+      <PageNavigation
+        {...pageNavigation}
+        initialData={rows}
+        paginatedData={paginatedData}
+        searchInput={searchInput}
+        filteredDataLength={filteredDataLength}
+      />
     </div>
   )
 }
