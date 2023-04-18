@@ -12,7 +12,7 @@ function usePagination<T extends string>(
   const [pagesNumber, setPagesNumber] = useState(getNumberOfPages(rows))
   const [hasNextPage, setHasNextPage] = useState(checkIfNextPageExist(rows))
   const [hasPreviousPage, setHasPreviousPage] = useState(false)
-  const [paginatedRows, setPaginatedRows] = useState(rows)
+  const [paginatedRows, setPaginatedRows] = useState<RowsUniqueIds<T>>([])
 
   useEffect(() => {
     const dataSliceStart = currentPageIndex * paginationSize

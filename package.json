@@ -1,11 +1,11 @@
 {
   "name": "david-mi-react-table",
   "private": false,
-  "version": "2.0.2",
+  "version": "2.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && cp ./src/lib/package.json ./dist/ && cp ./README.md ./dist/",
+    "build": "tsc && cp ./src/lib/package.json ./dist/lib && cp ./README.md ./dist/lib",
     "test": "vitest --reporter verbose",
     "preview": "vite preview"
   },
