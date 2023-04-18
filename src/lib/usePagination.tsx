@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import type { ChangeEvent } from "react"
-import type { RowsUniqueIds } from "./Table"
-import type { SortState } from "./useTable"
+import type { SortState, RowsUniqueIds } from "./useTable"
 
 function usePagination<T extends string>(
   rows: RowsUniqueIds<T>,

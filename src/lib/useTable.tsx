@@ -1,5 +1,4 @@
-import { useState, useMemo, useCallback, useReducer } from "react"
-import type { RowsUniqueIds } from "./Table"
+import { useState, useMemo, useCallback } from "react"
 import type { Row } from "./types"
 import { getRandomId } from "./utils"
 
@@ -7,6 +6,11 @@ export interface SortState<T> {
   type: "ASC" | "DESC" | "NONE"
   column: keyof T | ""
 }
+
+export type RowsUniqueIds<T extends string> = ({
+  /** uuid generated id */
+  uuid: string
+} & Row<T>)[]
 
 function useTable<T extends string>(rows: Row<T>[]) {
   const initialData = useMemo<RowsUniqueIds<T>>(() => {

@@ -1,5 +1,5 @@
 import type { Column } from "../types"
-import type { RowsUniqueIds } from "../Table"
+import type { RowsUniqueIds } from "../useTable"
 
 interface Props<T extends string> {
   /** Array of rows objects with properties to use on rows */
@@ -12,7 +12,6 @@ interface Props<T extends string> {
 
 function Tbody<T extends string>({ rowsData, columns }: Props<T>) {
   const hasData = rowsData.length > 0
-
 
   return (
     <tbody>

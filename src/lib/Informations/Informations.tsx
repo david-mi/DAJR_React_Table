@@ -1,4 +1,4 @@
-import type { RowsUniqueIds } from "../Table"
+import type { RowsUniqueIds } from "../useTable"
 import type { Row } from "../types"
 
 interface Props<T extends string> {

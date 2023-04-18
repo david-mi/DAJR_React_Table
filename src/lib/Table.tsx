@@ -10,11 +10,6 @@ import PageSelect from "./PageSelect/PageSelect"
 import Informations from "./Informations/Informations"
 import PageNavigation from "./PageNavigation/PageNavigation"
 
-export type RowsUniqueIds<T extends string> = ({
-  /** uuid generated id */
-  uuid: string
-} & Row<T>)[]
-
 export interface Props<T extends string> {
   columns: Column<T>[],
   rows: Row<T>[]
