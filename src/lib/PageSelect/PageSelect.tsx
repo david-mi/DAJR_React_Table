@@ -4,7 +4,7 @@ interface Props {
   updatePageSize: ({ target }: ChangeEvent<HTMLSelectElement>) => void
 }
 
-const SelectPagesSize = ({ updatePageSize }: Props) => {
+const PageSelect = ({ updatePageSize }: Props) => {
   const pagesSizes = [10, 25, 50, 100]
 
   return (
@@ -20,4 +20,4 @@ const SelectPagesSize = ({ updatePageSize }: Props) => {
   )
 }
 
-export default SelectPagesSize
+export default PageSelect

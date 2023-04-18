@@ -6,7 +6,7 @@ import useTable from "./useTable"
 import usePagination from "./usePagination"
 import { checkTableProps } from "./PropsError/checkTableProps"
 import PropsError from "./PropsError/PropsError"
-import SelectPagesSize from "./SelectPageSize/SelectPageSize"
+import PageSelect from "./PageSelect/PageSelect"
 import PageNavigation from "./PageNavigation/PageNavigation"
 
 export type RowsUniqueIds<T extends string> = ({
@@ -43,7 +43,7 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
 
   return (
     <div>
-      <SelectPagesSize updatePageSize={updatePageSize} />
+      <PageSelect updatePageSize={updatePageSize} />
       <Search setSearchInput={setSearchInput} />
       {noResults
         ? <h1>No results found.</h1>
