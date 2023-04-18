@@ -8,52 +8,56 @@ function usePagination<T extends string>(
   sort: SortState<T>,
   searchInput: string
 ) {
-  const [pageSize, setPageSize] = useState(10)
-  const [currentPage, setCurrentPage] = useState(0)
+  const [paginationSize, setPaginationSize] = useState(10)
+  const [currentPageIndex, setCurrentPageIndex] = useState(0)
   const [pagesNumber, setPagesNumber] = useState(getNumberOfPages(rows))
   const [hasNextPage, setHasNextPage] = useState(checkIfNextPageExist(rows))
   const [hasPreviousPage, setHasPreviousPage] = useState(false)
   const [paginatedRows, setPaginatedRows] = useState(rows)
 
   useEffect(() => {
-    const dataSliceStart = currentPage * pageSize
-    const dataSliceEnd = dataSliceStart + pageSize
+    const dataSliceStart = currentPageIndex * paginationSize
+    const dataSliceEnd = dataSliceStart + paginationSize
     setHasNextPage(checkIfNextPageExist(rows))
     setHasPreviousPage(checkIfPreviousPageExist())
     setPagesNumber(getNumberOfPages(rows))
     setPaginatedRows(rows.slice(dataSliceStart, dataSliceEnd))
-  }, [rows, currentPage, pageSize])
+  }, [rows, currentPageIndex, paginationSize])
 
   useEffect(() => {
-    if (currentPage !== 0) {
-      setCurrentPage(0)
+    if (currentPageIndex !== 0) {
+      setCurrentPageIndex(0)
     }
-  }, [sort, searchInput, pageSize])
+  }, [sort, searchInput, paginationSize])
 
   function goToNextPage() {
-    setCurrentPage((previousPage) => previousPage + 1)
+    setCurrentPageIndex((previousPage) => previousPage + 1)
   }
 
   function goToPreviousPage() {
-    setCurrentPage((previousPage) => previousPage - 1)
+    setCurrentPageIndex((previousPage) => previousPage - 1)
+  }
+
+  function goToPage(pageNumber: number) {
+    setCurrentPageIndex(pageNumber)
   }
 
   function checkIfNextPageExist(data: RowsUniqueIds<T>) {
-    const nextPageStartInData = (currentPage + 1) * pageSize
+    const nextPageStartInData = (currentPageIndex + 1) * paginationSize
     return data.length > nextPageStartInData
   }
 
   function checkIfPreviousPageExist() {
-    return currentPage - 1 >= 0
+    return currentPageIndex - 1 >= 0
   }
 
   function updatePageSize({ target }: ChangeEvent) {
     const selectNumberValue = parseInt((target as HTMLSelectElement).value, 10)
-    setPageSize(selectNumberValue)
+    setPaginationSize(selectNumberValue)
   }
 
   function getNumberOfPages(data: RowsUniqueIds<T>) {
-    return Math.ceil(data.length / pageSize)
+    return Math.ceil(data.length / paginationSize)
   }
 
   return {
@@ -61,11 +65,12 @@ function usePagination<T extends string>(
     hasNextPage,
     hasPreviousPage,
     pagesNumber,
-    pageSize,
+    paginationSize,
     updatePageSize,
-    currentPage,
+    currentPageIndex,
     goToNextPage,
-    goToPreviousPage
+    goToPreviousPage,
+    goToPage
   }
 }
 

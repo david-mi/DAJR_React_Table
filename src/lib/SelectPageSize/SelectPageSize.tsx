@@ -9,8 +9,8 @@ const SelectPagesSize = ({ updatePageSize }: Props) => {
 
   return (
     <select
-      name="pageSize"
-      id="pageSize"
+      name="paginationSize"
+      id="paginationSize"
       onChange={updatePageSize}
     >
       {pagesSizes.map((size) => {

@@ -1,46 +1,50 @@
 import type { RowsUniqueIds } from "../Table"
+import type { Row } from "../types"
+import Buttons from "./Buttons/Buttons"
 
-interface Props<T> {
-  hasNextPage: boolean
+interface Props<T extends string> {
   hasPreviousPage: boolean
-  currentPage: number,
-  pagesNumber: number,
-  initialDataLength: string,
-  searchInput: string,
-  filteredDataLength: string,
-  pageSize: number,
+  hasNextPage: boolean
   goToNextPage: () => void
   goToPreviousPage: () => void
+  goToPage: (pageNumber: number) => void
+  currentPageIndex: number,
+  pagesNumber: number,
+  searchInput: string,
+  filteredDataLength: number,
+  paginationSize: number,
+  initialData: Row<T>[]
+  paginatedData: RowsUniqueIds<T>,
 }
 
-const PageNavigation = (props: Props) => {
+function PageNavigation<T extends string>(props: Props<T>) {
   const {
-    hasNextPage,
-    hasPreviousPage,
-    currentPage,
-    pagesNumber,
+    currentPageIndex,
     searchInput,
     filteredDataLength,
-    pageSize,
-    goToPreviousPage,
-    goToNextPage,
+    paginationSize,
     paginatedData,
-    initialData
+    initialData,
+    ...buttonsProps
   } = props
 
-  const paginationScreenStart = paginatedData.length > 0
-    ? 1 + (currentPage * pageSize)
+  const paginatedDataLength = paginatedData.length
+  const hasPaginatedData = paginatedDataLength > 0
+
+  const paginationScreenStart = paginatedDataLength
+    ? 1 + (currentPageIndex * paginationSize)
     : 0
 
-  const paginationScreenEnd = currentPage * pageSize + paginatedData.length
+  const paginationScreenEnd = currentPageIndex * paginationSize + paginatedDataLength
   const initialDataLength = new Intl.NumberFormat("en-US").format(initialData.length)
 
   return (
     <div>
       <span>Showing {paginationScreenStart} to {paginationScreenEnd} of {filteredDataLength} entries </span>
       {searchInput && <span>(filtered from {initialDataLength} total entries)</span>}
-      <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
-      <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
+      {hasPaginatedData && (
+        <Buttons {...buttonsProps} currentPageIndex={currentPageIndex} />
+      )}
     </div>
   )
 }
