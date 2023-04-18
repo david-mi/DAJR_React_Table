@@ -15,6 +15,8 @@ interface Props<T extends string> {
   setSort: Dispatch<SetStateAction<SortState<T>>>
 }
 
+/** Display column heading */
+
 function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
 
   /**

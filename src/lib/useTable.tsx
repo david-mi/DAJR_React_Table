@@ -8,14 +8,19 @@ export interface SortState<T> {
 }
 
 export type RowsUniqueIds<T extends string> = ({
-  /** uuid generated id */
-  uuid: string
+  /** uniqueId generated id */
+  uniqueId: string
 } & Row<T>)[]
 
+/**
+ * Custom Hook to handle initial rows data, data sorting and data filtering
+ */
+
 function useTable<T extends string>(rows: Row<T>[]) {
+  /** Initial rows data with added unique id */
   const initialData = useMemo<RowsUniqueIds<T>>(() => {
     return rows.map((row) => {
-      return { ...row, uuid: getRandomId() }
+      return { ...row, uniqueId: getRandomId() }
     })
   }, [])
 
@@ -51,11 +56,11 @@ function useTable<T extends string>(rows: Row<T>[]) {
    * Filter datas based on parameters
    * 
    * - if {@link searchInput} is included in one of the rows, filters returns true
-   * - uuid property is being ignored during search
+   * - uniqueId property is being ignored during search
    */
 
   const filterData = useCallback((data: RowsUniqueIds<T>) => {
-    return data.filter(({ uuid, ...row }) => {
+    return data.filter(({ uniqueId, ...row }) => {
       return Object
         .values<string | number>(row)
         .find((value) => {

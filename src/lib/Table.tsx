@@ -1,19 +1,21 @@
 import type { Column, Row } from "./types"
-import Thead from "./Thead/Thead"
-import Tbody from "./Tbody/Tbody"
-import Search from "./Search/Search"
-import useTable from "./useTable"
-import usePagination from "./usePagination"
 import { checkTableProps } from "./PropsError/checkTableProps"
 import PropsError from "./PropsError/PropsError"
 import PageSelect from "./PageSelect/PageSelect"
+import Search from "./Search/Search"
+import Thead from "./Thead/Thead"
+import Tbody from "./Tbody/Tbody"
 import Informations from "./Informations/Informations"
 import PageNavigation from "./PageNavigation/PageNavigation"
+import useTable from "./useTable"
+import usePagination from "./usePagination"
 
 export interface Props<T extends string> {
   columns: Column<T>[],
   rows: Row<T>[]
 }
+
+/** Table with options */
 
 function Table<T extends string>({ columns, rows }: Props<T>) {
   const propsError = checkTableProps({ columns, rows })
@@ -30,10 +32,10 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
   } = useTable<T>(rows)
 
   const {
-    updatePageSize,
     paginatedData,
-    pagesNumber,
+    updatePageSize,
     paginationSize,
+    pagesNumber,
     currentPageIndex,
     hasNextPage,
     hasPreviousPage,
@@ -41,6 +43,8 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
     goToPreviousPage,
     goToPage
   } = usePagination<T>(rowsData, sort, searchInput)
+
+  const hasMultiplePages = pagesNumber > 1
 
   return (
     <div>
@@ -58,7 +62,7 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
         paginatedData={paginatedData}
         initialData={rows}
       />
-      {pagesNumber > 1 && (
+      {hasMultiplePages && (
         <PageNavigation
           hasNextPage={hasNextPage}
           hasPreviousPage={hasPreviousPage}

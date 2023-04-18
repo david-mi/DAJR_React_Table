@@ -10,6 +10,8 @@ interface Props {
   pagesNumber: number
 }
 
+/** Navigation part for pages */
+
 const PageNavigation = (props: Props) => {
   const {
     hasPreviousPage,
@@ -25,12 +27,24 @@ const PageNavigation = (props: Props) => {
   const lastPageNumber = pagesNumber
   const inputRef = useRef<HTMLInputElement>(null!)
 
+  /**
+   * Parse input value
+   * - if {@link parseInputValue} returns a number, change the current page
+   * - else return 
+   */
+
   function handleInput({ target }: ChangeEvent<HTMLInputElement>) {
     const inputNumberValue = parseInputValue(target.value)
     if (inputNumberValue === undefined) return
 
     goToPage(inputNumberValue - 1)
   }
+
+  /**
+   * Utility function to parse retrieved input value
+   * Prevent returning something different than a number or a number that is
+   * bigger than {@link lastPageNumber} or lower than 1
+   */
 
   function parseInputValue(inputValue: string): number | undefined {
     if (inputValue === "") {
@@ -46,6 +60,13 @@ const PageNavigation = (props: Props) => {
       ? 1
       : inputValueNumber
   }
+
+  /**
+   * Reset page input value if {@link currentPageNumber} is different than {@link inputNumberValue}
+   * 
+   * This could happend if user is sorting, filtering or changing pagination size,
+   * which reset page to the first one
+  */
 
   useEffect(() => {
     const inputNumberValue = parseInputValue(inputRef.current.value)

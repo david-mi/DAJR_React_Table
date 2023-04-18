@@ -22,7 +22,6 @@ export const errors = {
       missingProperty: "Each columns objects must have a title and accessor property",
       incorrectValue: "title and accessor value must be string and not be empty"
     }
-
   },
   rows: {
     missing: "rows props is missing",
@@ -76,7 +75,6 @@ function throwIfRowsIsInvalid({ rows, columns }: { rows: any[], columns: any[] }
   if (Array.isArray(rows) === false) {
     throw new Error(errors.rows.notArray)
   }
-
 
   rows.forEach((row) => {
     if (row.constructor !== Object) {

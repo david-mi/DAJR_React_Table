@@ -4,6 +4,8 @@ interface Props {
   updatePageSize: ({ target }: ChangeEvent<HTMLSelectElement>) => void
 }
 
+/** Select menu to change pages size */
+
 const PageSelect = ({ updatePageSize }: Props) => {
   const pagesSizes = [10, 25, 50, 100]
   const defaultOptionValue = pagesSizes[1]

@@ -14,7 +14,6 @@ interface Props<T> {
 function SortIcon<T extends string>({ accessor, sort }: Props<T>) {
   const isColumnSorted = accessor === sort.column
 
-
   const icons = {
     ASC: "▲",
     DESC: "▼",

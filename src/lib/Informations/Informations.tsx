@@ -10,6 +10,8 @@ interface Props<T extends string> {
   initialData: Row<T>[]
 }
 
+/** Table informations */
+
 function Informations<T extends string>(props: Props<T>) {
   const {
     currentPageIndex,

@@ -17,6 +17,7 @@ function usePagination<T extends string>(
   useEffect(() => {
     const dataSliceStart = currentPageIndex * paginationSize
     const dataSliceEnd = dataSliceStart + paginationSize
+
     setHasNextPage(checkIfNextPageExist(rows))
     setHasPreviousPage(checkIfPreviousPageExist())
     setPagesNumber(getNumberOfPages(rows))
@@ -50,8 +51,8 @@ function usePagination<T extends string>(
     return currentPageIndex - 1 >= 0
   }
 
-  function updatePageSize({ target }: ChangeEvent) {
-    const selectNumberValue = parseInt((target as HTMLSelectElement).value, 10)
+  function updatePageSize({ target }: ChangeEvent<HTMLSelectElement>) {
+    const selectNumberValue = parseInt(target.value, 10)
     setPaginationSize(selectNumberValue)
   }
 

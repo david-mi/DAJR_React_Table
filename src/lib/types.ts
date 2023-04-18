@@ -1,5 +1,6 @@
 export interface Column<T> {
   title: string,
+  /** a property from Row */
   accessor: T
 }
 
