@@ -13,11 +13,19 @@ import usePagination from "./usePagination"
 export interface Props<T extends string> {
   columns: Column<T>[],
   rows: Row<T>[]
+  classNames?: {
+    container?: string
+    table?: string
+    select?: string
+    search?: string
+    informations?: string
+    navigation?: string
+  }
 }
 
 /** Table with options */
 
-function Table<T extends string>({ columns, rows }: Props<T>) {
+function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
   const propsError = checkTableProps({ columns, rows })
   if (propsError) {
     return <PropsError error={propsError.message} />
@@ -47,10 +55,10 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
   const hasMultiplePages = pagesNumber > 1
 
   return (
-    <div>
-      <PageSelect updatePageSize={updatePageSize} />
-      <Search setSearchInput={setSearchInput} />
-      <table>
+    <div className={classNames.container}>
+      <PageSelect updatePageSize={updatePageSize} className={classNames.select} />
+      <Search setSearchInput={setSearchInput} className={classNames.search} />
+      <table className={classNames.table}>
         <Thead sort={sort} setSort={setSort} columns={columns} />
         <Tbody rowsData={paginatedData} columns={columns} />
       </table>
@@ -61,6 +69,7 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
         paginationSize={paginationSize}
         paginatedData={paginatedData}
         initialData={rows}
+        className={classNames.informations}
       />
       {hasMultiplePages && (
         <PageNavigation
@@ -71,6 +80,7 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
           goToPage={goToPage}
           currentPageIndex={currentPageIndex}
           pagesNumber={pagesNumber}
+          className={classNames.navigation}
         />
       )}
     </div>

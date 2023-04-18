@@ -8,6 +8,7 @@ interface Props<T extends string> {
   paginationSize: number,
   paginatedData: RowsUniqueIds<T>,
   initialData: Row<T>[]
+  className?: string
 }
 
 /** Table informations */
@@ -20,6 +21,7 @@ function Informations<T extends string>(props: Props<T>) {
     paginationSize,
     paginatedData,
     initialData,
+    className
   } = props
 
   const paginatedDataLength = paginatedData.length
@@ -30,7 +32,7 @@ function Informations<T extends string>(props: Props<T>) {
   const initialDataLength = new Intl.NumberFormat("en-US").format(initialData.length)
 
   return (
-    <div>
+    <div className={className}>
       <span>Showing {paginationScreenStart} to {paginationScreenEnd} of {filteredDataLength} entries </span>
       {searchInput && <span>(filtered from {initialDataLength} total entries)</span>}
     </div>

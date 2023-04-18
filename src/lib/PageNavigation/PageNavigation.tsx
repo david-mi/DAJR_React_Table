@@ -8,6 +8,7 @@ interface Props {
   goToPage: (pageNumber: number) => void
   currentPageIndex: number
   pagesNumber: number
+  className?: string
 }
 
 /** Navigation part for pages */
@@ -20,7 +21,8 @@ const PageNavigation = (props: Props) => {
     goToNextPage,
     goToPage,
     currentPageIndex,
-    pagesNumber
+    pagesNumber,
+    className
   } = props
 
   const currentPageNumber = currentPageIndex + 1
@@ -77,7 +79,7 @@ const PageNavigation = (props: Props) => {
   }, [currentPageNumber])
 
   return (
-    <div>
+    <div className={className}>
       <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
       <input
         type="number"
