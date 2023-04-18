@@ -1,50 +1,71 @@
-import type { RowsUniqueIds } from "../Table"
-import type { Row } from "../types"
-import Buttons from "./Buttons/Buttons"
+import { ChangeEvent, useEffect, useRef } from "react"
 
-interface Props<T extends string> {
+interface Props {
   hasPreviousPage: boolean
+  goToPreviousPage: () => void
   hasNextPage: boolean
   goToNextPage: () => void
-  goToPreviousPage: () => void
   goToPage: (pageNumber: number) => void
-  currentPageIndex: number,
-  pagesNumber: number,
-  searchInput: string,
-  filteredDataLength: number,
-  paginationSize: number,
-  initialData: Row<T>[]
-  paginatedData: RowsUniqueIds<T>,
+  currentPageIndex: number
+  pagesNumber: number
 }
 
-function PageNavigation<T extends string>(props: Props<T>) {
+const PageNavigation = (props: Props) => {
   const {
+    hasPreviousPage,
+    goToPreviousPage,
+    hasNextPage,
+    goToNextPage,
+    goToPage,
     currentPageIndex,
-    searchInput,
-    filteredDataLength,
-    paginationSize,
-    paginatedData,
-    initialData,
-    ...buttonsProps
+    pagesNumber
   } = props
 
-  const paginatedDataLength = paginatedData.length
-  const hasPaginatedData = paginatedDataLength > 0
+  const currentPageNumber = currentPageIndex + 1
+  const lastPageNumber = pagesNumber
+  const inputRef = useRef<HTMLInputElement>(null!)
 
-  const paginationScreenStart = paginatedDataLength
-    ? 1 + (currentPageIndex * paginationSize)
-    : 0
+  function handleInput({ target }: ChangeEvent<HTMLInputElement>) {
+    const inputNumberValue = parseInputValue(target.value)
+    if (inputNumberValue === undefined) return
 
-  const paginationScreenEnd = currentPageIndex * paginationSize + paginatedDataLength
-  const initialDataLength = new Intl.NumberFormat("en-US").format(initialData.length)
+    goToPage(inputNumberValue - 1)
+  }
+
+  function parseInputValue(inputValue: string): number | undefined {
+    if (inputValue === "") {
+      return 1
+    }
+
+    if (/^\d+$/.test(inputValue) === false) return
+
+    const inputValueNumber = parseInt(inputValue)
+    if (inputValueNumber > lastPageNumber) return
+
+    return inputValueNumber < 1
+      ? 1
+      : inputValueNumber
+  }
+
+  useEffect(() => {
+    const inputNumberValue = parseInputValue(inputRef.current.value)
+    if (inputNumberValue !== currentPageNumber) {
+      inputRef.current.value = String(currentPageNumber)
+    }
+
+  }, [currentPageNumber])
 
   return (
     <div>
-      <span>Showing {paginationScreenStart} to {paginationScreenEnd} of {filteredDataLength} entries </span>
-      {searchInput && <span>(filtered from {initialDataLength} total entries)</span>}
-      {hasPaginatedData && (
-        <Buttons {...buttonsProps} currentPageIndex={currentPageIndex} />
-      )}
+      <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
+      <input
+        type="number"
+        onChange={handleInput}
+        defaultValue={currentPageNumber}
+        ref={inputRef}
+      />
+      <span>/{pagesNumber}</span>
+      <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
     </div>
   )
 }

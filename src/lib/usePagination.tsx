@@ -8,7 +8,7 @@ function usePagination<T extends string>(
   sort: SortState<T>,
   searchInput: string
 ) {
-  const [paginationSize, setPaginationSize] = useState(10)
+  const [paginationSize, setPaginationSize] = useState(25)
   const [currentPageIndex, setCurrentPageIndex] = useState(0)
   const [pagesNumber, setPagesNumber] = useState(getNumberOfPages(rows))
   const [hasNextPage, setHasNextPage] = useState(checkIfNextPageExist(rows))
@@ -62,12 +62,12 @@ function usePagination<T extends string>(
 
   return {
     paginatedData: paginatedRows,
-    hasNextPage,
-    hasPreviousPage,
     pagesNumber,
     paginationSize,
     updatePageSize,
     currentPageIndex,
+    hasNextPage,
+    hasPreviousPage,
     goToNextPage,
     goToPreviousPage,
     goToPage

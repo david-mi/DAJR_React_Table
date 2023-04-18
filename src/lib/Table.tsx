@@ -7,6 +7,7 @@ import usePagination from "./usePagination"
 import { checkTableProps } from "./PropsError/checkTableProps"
 import PropsError from "./PropsError/PropsError"
 import PageSelect from "./PageSelect/PageSelect"
+import Informations from "./Informations/Informations"
 import PageNavigation from "./PageNavigation/PageNavigation"
 
 export type RowsUniqueIds<T extends string> = ({
@@ -30,37 +31,49 @@ function Table<T extends string>({ columns, rows }: Props<T>) {
     sort,
     setSort,
     searchInput,
-    setSearchInput,
-    noResults,
-    filteredDataLength
+    setSearchInput
   } = useTable<T>(rows)
 
   const {
     updatePageSize,
     paginatedData,
-    ...pageNavigation
+    pagesNumber,
+    paginationSize,
+    currentPageIndex,
+    hasNextPage,
+    hasPreviousPage,
+    goToNextPage,
+    goToPreviousPage,
+    goToPage
   } = usePagination<T>(rowsData, sort, searchInput)
 
   return (
     <div>
       <PageSelect updatePageSize={updatePageSize} />
       <Search setSearchInput={setSearchInput} />
-      {noResults
-        ? <h1>No results found.</h1>
-        : (
-          <table>
-            <Thead sort={sort} setSort={setSort} columns={columns} />
-            <Tbody rowsData={paginatedData} columns={columns} />
-          </table>
-        )
-      }
-      <PageNavigation
-        {...pageNavigation}
-        initialData={rows}
-        paginatedData={paginatedData}
+      <table>
+        <Thead sort={sort} setSort={setSort} columns={columns} />
+        <Tbody rowsData={paginatedData} columns={columns} />
+      </table>
+      <Informations
+        currentPageIndex={currentPageIndex}
         searchInput={searchInput}
-        filteredDataLength={filteredDataLength}
+        filteredDataLength={rowsData.length}
+        paginationSize={paginationSize}
+        paginatedData={paginatedData}
+        initialData={rows}
       />
+      {pagesNumber > 1 && (
+        <PageNavigation
+          hasNextPage={hasNextPage}
+          hasPreviousPage={hasPreviousPage}
+          goToNextPage={goToNextPage}
+          goToPreviousPage={goToPreviousPage}
+          goToPage={goToPage}
+          currentPageIndex={currentPageIndex}
+          pagesNumber={pagesNumber}
+        />
+      )}
     </div>
   )
 }

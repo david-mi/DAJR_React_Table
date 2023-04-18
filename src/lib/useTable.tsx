@@ -72,9 +72,7 @@ function useTable<T extends string>(rows: Row<T>[]) {
     sort,
     setSort,
     searchInput,
-    setSearchInput,
-    noResults: rowsData.length === 0,
-    filteredDataLength: rowsData.length
+    setSearchInput
   }
 }
 

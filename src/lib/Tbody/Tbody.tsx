@@ -11,22 +11,24 @@ interface Props<T extends string> {
 /** Display each Rows */
 
 function Tbody<T extends string>({ rowsData, columns }: Props<T>) {
+  const hasData = rowsData.length > 0
+
+
   return (
     <tbody>
-      {rowsData.map(({ uuid, ...dataValue }) => (
-        <tr key={uuid} data-testid="tbody-row">
-          {columns.map(({ accessor }) => {
-            return (
-              <td
-                key={accessor}
-                data-testid="tbody-cell"
-              >
-                {dataValue[accessor]}
-              </td>
-            )
-          })}
-        </tr>
-      ))
+      {hasData
+        ? rowsData.map(({ uuid, ...dataValue }) => (
+          <tr key={uuid} data-testid="tbody-row">
+            {columns.map(({ accessor }) => {
+              return (
+                <td key={accessor} data-testid="tbody-cell">
+                  {dataValue[accessor]}
+                </td>
+              )
+            })}
+          </tr>
+        ))
+        : <tr><td colSpan={columns.length}>No data found</td></tr>
       }
     </tbody>
   )
