@@ -1,4 +1,4 @@
-# david-mi react-table v1.0.4
+# david-mi react-table v2.0.2
 
 ## Description
 
@@ -10,6 +10,12 @@ When clicking on column heading, you can arrange data in 3 ways
 - Sorting in ascending order
 - Sorting in descending order
 - Unsort (Will show unsorted data)
+- Filter rows based on input search
+- Handle pagination size with select menu
+- View data Informations (pages entries, total filtered entries, total entries)
+- Go to next page
+- Go to previous page
+- Go to page specified in page input
 
 ### Filtering data
 When entering text on the search input, only rows that includes wrote texte in any fields will be displayed
