@@ -3,6 +3,7 @@ import { getNodeText, render, screen, fireEvent } from "@testing-library/react";
 import { columns as mockColumns, rows as mockRows } from "../__mocks__"
 import type { Data } from "../__mocks__";
 import { Table } from "../lib";
+import { getMockRowsValuesInColumnOrder } from "./utils.test";
 
 beforeEach(() => {
   render(<Table columns={mockColumns} rows={mockRows} />)
@@ -37,17 +38,7 @@ describe("Given i'm calling <Table />", () => {
     })
 
     test("Then rows accessors should be displayed in the corresponding column", () => {
-      const mockRowsValues = mockRows.reduce<Array<string>>((acc, row) => {
-        mockColumns.forEach((mockColumn) => {
-          let rowAccessor = row[mockColumn.accessor]
-          if (typeof rowAccessor === "number") {
-            rowAccessor = String(rowAccessor)
-          }
-
-          acc.push(rowAccessor)
-        })
-        return acc
-      }, [])
+      const mockRowsValues = getMockRowsValuesInColumnOrder(mockRows, mockColumns)
 
       const cellsTexts = screen
         .getAllByTestId("tbody-cell")
