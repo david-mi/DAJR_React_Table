@@ -1,5 +1,6 @@
 import type { Column } from "../types"
 import type { RowsUniqueIds } from "../useTable"
+import NoData from "./NoData/NoData"
 
 interface Props<T extends string> {
   /** Array of rows objects with properties to use on rows */
@@ -34,7 +35,7 @@ function Tbody<T extends string>({ rowsData, columns }: Props<T>) {
             })}
           </tr>
         ))
-        : <tr><td colSpan={columns.length}>No data found</td></tr>
+        : <NoData columnsLength={columns.length} />
       }
     </tbody>
   )
