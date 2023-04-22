@@ -15,6 +15,7 @@ export interface Props<T extends string> {
   rows: Row<T>[]
   classNames?: {
     container?: string
+    tableContainer?: string
     table?: string
     select?: string
     search?: string
@@ -58,10 +59,12 @@ function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
     <div className={classNames.container}>
       <PageSelect updatePageSize={updatePageSize} className={classNames.select} />
       <Search setSearchInput={setSearchInput} className={classNames.search} />
-      <table className={classNames.table}>
-        <Thead sort={sort} setSort={setSort} columns={columns} />
-        <Tbody rowsData={paginatedData} columns={columns} />
-      </table>
+      <div className={classNames.tableContainer}>
+        <table className={classNames.table}>
+          <Thead sort={sort} setSort={setSort} columns={columns} />
+          <Tbody rowsData={paginatedData} columns={columns} />
+        </table>
+      </div>
       <Informations
         currentPageIndex={currentPageIndex}
         searchInput={searchInput}

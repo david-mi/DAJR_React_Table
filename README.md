@@ -1,4 +1,4 @@
-# david-mi react-table v2.0.3
+# david-mi react-table v2.1.3
 
 ## Description
 

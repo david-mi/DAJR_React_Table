@@ -27,8 +27,8 @@ function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
    * - else, define sort type based of current sort type and {@link SORT_SWITCH}
    */
 
-  function handleColumnHeadClick({ target }: MouseEvent) {
-    const clickedColumnHead = (target as HTMLTableCellElement).dataset.column as keyof T
+  function handleColumnHeadClick({ currentTarget }: MouseEvent) {
+    const clickedColumnHead = (currentTarget as HTMLTableCellElement).dataset.column as keyof T
 
     setSort(
       clickedColumnHead !== sort.column
@@ -47,8 +47,10 @@ function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
             onClick={handleColumnHeadClick}
             data-testid="thead-th"
           >
-            {title}
-            <SortIcon sort={sort} accessor={accessor} />
+            <div>
+              <p>{title}</p>
+              <SortIcon sort={sort} accessor={accessor} />
+            </div>
           </th>
         ))}
       </tr>
