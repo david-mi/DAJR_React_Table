@@ -48,7 +48,7 @@ function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
             data-testid="thead-th"
           >
             <div>
-              <p>{title}</p>
+              <p data-testid="thead-title">{title}</p>
               <SortIcon sort={sort} accessor={accessor} />
             </div>
           </th>
