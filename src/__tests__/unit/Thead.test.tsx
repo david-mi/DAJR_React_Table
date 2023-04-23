@@ -1,10 +1,10 @@
 import React from "react";
 import { getNodeText, render, screen } from "@testing-library/react";
-import { columns as mockColumns, rows as mockRows } from "../__mocks__"
+import { columns as mockColumns } from "../../__mocks__"
 import { vi } from "vitest";
-import Thead from "../lib/Thead/Thead";
-import type { SortState } from "../lib/useTable";
-import type { Data } from "../__mocks__";
+import Thead from "../../lib/Thead/Thead";
+import type { SortState } from "../../lib/useTable";
+import type { Data } from "../../__mocks__";
 
 describe("Given i'm calling <Thead />", () => {
   describe("When I'm passing mocked data as props", () => {

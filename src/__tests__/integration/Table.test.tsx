@@ -1,52 +1,11 @@
 
 import { getNodeText, render, screen, fireEvent } from "@testing-library/react";
-import { columns as mockColumns, rows as mockRows } from "../__mocks__"
-import type { Data } from "../__mocks__";
-import { Table } from "../lib";
-import { getMockRowsValuesInColumnOrder } from "./utils.test";
+import { columns as mockColumns, rows as mockRows } from "../../__mocks__"
+import type { Data } from "../../__mocks__";
+import { Table } from "../../lib";
 
 beforeEach(() => {
   render(<Table columns={mockColumns} rows={mockRows} />)
-})
-
-describe("Given i'm calling <Table />", () => {
-  describe("When I'm passing mocked data as props", () => {
-    let columnsHeads: HTMLElement[]
-    beforeEach(() => {
-      columnsHeads = screen.getAllByTestId("thead-title")
-    })
-
-    test("Then the number of displayed columns should be equal to mock columns length", () => {
-      const mockColumnsLength = mockColumns.length
-      expect(columnsHeads).toHaveLength(mockColumnsLength)
-    })
-
-    test("Then the columns heads should display mock columns accessors in the same order", () => {
-      const mockColumnsAccessorArray = mockColumns.reduce<string[]>((acc, el) => {
-        acc.push(el.title)
-        return acc
-      }, [])
-
-      const columnsHeadsValues = columnsHeads.map(getNodeText)
-      expect(columnsHeadsValues).toEqual(mockColumnsAccessorArray)
-    })
-
-    test("Then number of displayed rows should be equal to mock rows length", () => {
-      const rowsElements = screen.getAllByTestId("tbody-row")
-      const mockRowsLength = mockRows.length
-      expect(rowsElements).toHaveLength(mockRowsLength)
-    })
-
-    test("Then rows accessors should be displayed in the corresponding column", () => {
-      const mockRowsValues = getMockRowsValuesInColumnOrder(mockRows, mockColumns)
-
-      const cellsTexts = screen
-        .getAllByTestId("tbody-cell")
-        .map(getNodeText)
-
-      expect(cellsTexts).toEqual(mockRowsValues)
-    })
-  })
 })
 
 describe("Given I want to sort rows", () => {

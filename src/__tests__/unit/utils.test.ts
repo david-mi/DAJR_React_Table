@@ -1,7 +1,7 @@
 import { expect } from "vitest";
-import type { Data } from "../__mocks__"
-import type { Column, Row } from "../lib"
-import { rows, columns } from "../__mocks__";
+import type { Data } from "../../__mocks__"
+import { columns } from "../../__mocks__";
+import type { Column, Row } from "../../lib"
 
 type RowsUniqueIdsPartial<T extends keyof Data> = ({
   uniqueId?: string;
