@@ -5,3 +5,13 @@ export function getRandomId() {
   const randomStringNumber = String(Math.random())
   return (stringDate + randomStringNumber).replace(/\./g, "")
 }
+
+export function createArrayOfNumbers(length: number, start: number = 1) {
+  const pageNumbers = []
+
+  for (let i = start; i < start + length; i++) {
+    pageNumbers.push(i)
+  }
+
+  return pageNumbers
+}

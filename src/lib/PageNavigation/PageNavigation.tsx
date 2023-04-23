@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef } from "react"
-import NumberButtons from "./NumberButtons/NumberButtons"
+import PageButtons from "./PageButtons/PageButtons"
 
 interface Props {
   hasPreviousPage: boolean
@@ -94,10 +94,10 @@ const PageNavigation = (props: Props) => {
         ref={inputRef}
       />
       <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
-      <NumberButtons
+      <PageButtons
         changePage={changePage}
         currentPageNumber={currentPageNumber}
-        pagesNumber={pagesNumber}
+        lastPageNumber={lastPageNumber}
       />
       <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
     </div>
