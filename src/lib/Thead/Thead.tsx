@@ -28,7 +28,7 @@ function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
    */
 
   function handleColumnHeadClick({ currentTarget }: MouseEvent) {
-    const clickedColumnHead = (currentTarget as HTMLTableCellElement).dataset.column as keyof T
+    const clickedColumnHead = (currentTarget as HTMLTableCellElement).dataset.column as T
 
     setSort(
       clickedColumnHead !== sort.column

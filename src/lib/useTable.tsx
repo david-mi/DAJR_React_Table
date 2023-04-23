@@ -4,7 +4,7 @@ import { getRandomId } from "./utils"
 
 export interface SortState<T> {
   type: "ASC" | "DESC" | "NONE"
-  column: keyof T | ""
+  column: T | ""
 }
 
 export type RowsUniqueIds<T extends string> = ({
