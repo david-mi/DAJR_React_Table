@@ -13,7 +13,7 @@ describe("Given i'm calling <Table />", () => {
   describe("When I'm passing mocked data as props", () => {
     let columnsHeads: HTMLElement[]
     beforeEach(() => {
-      columnsHeads = screen.getAllByTestId("thead-th")
+      columnsHeads = screen.getAllByTestId("thead-title")
     })
 
     test("Then the number of displayed columns should be equal to mock columns length", () => {
@@ -72,7 +72,7 @@ describe("Given I want to sort rows", () => {
   })
 
   beforeEach(() => {
-    firstColumnHead = screen.getAllByTestId("thead-th")[0]
+    firstColumnHead = screen.getAllByTestId("thead-title")[0]
     firstColumnAccessor = mockColumns[0].accessor
   })
 
@@ -114,8 +114,8 @@ describe("Given I want to sort rows", () => {
 
   describe("When I'm clicking on first column head, then on second", () => {
     test("Then it should sort rows in ascending order, based on second column cells", () => {
-      const firstNameColumnHead = screen.getAllByTestId("thead-th")[0]
-      const lastNameColumnHead = screen.getAllByTestId("thead-th")[1]
+      const firstNameColumnHead = screen.getAllByTestId("thead-title")[0]
+      const lastNameColumnHead = screen.getAllByTestId("thead-title")[1]
 
       fireEvent.click(firstNameColumnHead)
       fireEvent.click(lastNameColumnHead)
@@ -165,7 +165,7 @@ describe("Given I want to filter rows based on input search value", () => {
 describe("Given I want to sort rows, then filter them based on input search value", () => {
   describe("When i'm cliking on 'Date of Birth' column head, then typing 'sunset' in search input", () => {
     test("Then 3 rows should be displayed in the table with correct data in ascending birthDate order", () => {
-      const dateOfBirthColumnHead = screen.getAllByTestId("thead-th")[4]
+      const dateOfBirthColumnHead = screen.getAllByTestId("thead-title")[4]
       expect(dateOfBirthColumnHead).toHaveTextContent("Date of Birth")
       fireEvent.click(dateOfBirthColumnHead)
 
