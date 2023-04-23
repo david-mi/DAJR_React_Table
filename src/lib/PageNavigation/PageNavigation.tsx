@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useRef } from "react"
+import NumberButtons from "./NumberButtons/NumberButtons"
 
 interface Props {
   hasPreviousPage: boolean
@@ -63,6 +64,12 @@ const PageNavigation = (props: Props) => {
       : inputValueNumber
   }
 
+  function changePage(pageNumber: number) {
+    return () => {
+      goToPage(pageNumber)
+    }
+  }
+
   /**
    * Reset page input value if {@link currentPageNumber} is different than {@link inputNumberValue}
    * 
@@ -80,14 +87,18 @@ const PageNavigation = (props: Props) => {
 
   return (
     <div className={className}>
-      <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
       <input
         type="number"
         onChange={handleInput}
         defaultValue={currentPageNumber}
         ref={inputRef}
       />
-      <span>/{pagesNumber}</span>
+      <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
+      <NumberButtons
+        changePage={changePage}
+        currentPageNumber={currentPageNumber}
+        pagesNumber={pagesNumber}
+      />
       <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
     </div>
   )
