@@ -1,6 +1,6 @@
 import type { SortState } from "../../useTable"
 
-interface Props<T> {
+export interface Props<T> {
   sort: SortState<T>
   /** column accessor */
   accessor: T
@@ -27,11 +27,11 @@ function SortIcon<T extends string>({ accessor, sort }: Props<T>) {
   }
 
   return (
-    <div>
-      <div data-testid="thead-icon-asc" data-active={isIconActive(icons.ASC)}>
+    <div data-testid={`thead-icons-${accessor}`}>
+      <div data-testid="icon-asc" data-active={isIconActive(icons.ASC)}>
         {icons.ASC}
       </div>
-      <div data-testid="thead-icon-asc" data-active={isIconActive(icons.DESC)}>
+      <div data-testid="icon-desc" data-active={isIconActive(icons.DESC)}>
         {icons.DESC}
       </div>
     </div>
