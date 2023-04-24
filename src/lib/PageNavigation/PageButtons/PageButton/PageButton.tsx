@@ -1,4 +1,4 @@
-interface Props {
+export interface Props {
   changePage: (pageNumber: number) => () => void
   currentPageNumber: number,
   pageToGo: number
@@ -9,6 +9,7 @@ const PageButton = ({ currentPageNumber, changePage, pageToGo }: Props) => {
 
   return (
     <button
+      data-testid="page-button"
       data-current={isCurrentPage}
       key={pageToGo}
       onClick={changePage(pageToGo - 1)}
