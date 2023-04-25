@@ -1,13 +1,13 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from "react"
 
 interface Props {
-  setSearchInput: Dispatch<SetStateAction<string>>
+  handleSearch: (searchInput: string) => void
   className?: string
 }
 
 /** Search input to filter table rows */
 
-function Search({ setSearchInput, className }: Props) {
+function Search({ handleSearch, className }: Props) {
 
   /** 
    * Convert input value to lowerCase and sets it to searchInput state
@@ -15,7 +15,7 @@ function Search({ setSearchInput, className }: Props) {
 
   function handleSearchInput(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value
-    setSearchInput(value.toLowerCase())
+    handleSearch(value.toLowerCase())
   }
 
   return (

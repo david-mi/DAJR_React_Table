@@ -13,12 +13,9 @@ describe("Given i'm calling <Thead />", () => {
         type: "NONE",
         column: ""
       }
-      const setSort = vi.fn()
+      const handleSort = vi.fn()
 
-      const useStateSpy = vi.spyOn(React, 'useState');
-      useStateSpy.mockReturnValueOnce([sort, setSort]);
-
-      render(<Thead sort={sort} setSort={setSort} columns={mockColumns} />)
+      render(<Thead sort={sort} handleSort={handleSort} columns={mockColumns} />)
     })
 
     test("Then numbers of thead cells should be equal to mock columns length", () => {

@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import type { Row } from "./types"
 import { getRandomId } from "./utils"
+import usePagination from "./usePagination"
 
 export interface SortState<T> {
   type: "ASC" | "DESC" | "NONE"
@@ -31,8 +32,8 @@ function useTable<T extends string>(rows: Row<T>[]) {
   })
   const [searchInput, setSearchInput] = useState("")
 
+  const pagination = usePagination(rowsData)
   const previousInput = useRef("")
-  const firstRender = useRef(true)
   const isUnsort = sort.type === "NONE"
 
   /**
@@ -43,7 +44,7 @@ function useTable<T extends string>(rows: Row<T>[]) {
    * - if {@link sort.type} is equal to "DESC", sort in descending order
    */
 
-  const sortData = useCallback((data: RowsUniqueIds<T>) => {
+  const sortData = useCallback((data: RowsUniqueIds<T>, sort: SortState<T>) => {
     return [...data].sort((a, b) => {
       const [firstValue, secondValue] = sort.type === "ASC"
         ? [a[sort.column], b[sort.column]]
@@ -62,7 +63,7 @@ function useTable<T extends string>(rows: Row<T>[]) {
    * - uniqueId property is being ignored during search
    */
 
-  const filterData = useCallback((data: RowsUniqueIds<T>) => {
+  const filterData = useCallback((data: RowsUniqueIds<T>, searchInput: string) => {
     return data.filter(({ uniqueId, ...row }) => {
       return Object
         .values<string | number>(row)
@@ -74,45 +75,44 @@ function useTable<T extends string>(rows: Row<T>[]) {
     })
   }, [searchInput])
 
-  useEffect(() => {
-    /** avoid unnecessary data processing on first render */
-    if (firstRender.current) return
-
-    setRowsData(
-      isUnsort
-        ? filterData(initialData)
-        : sortData(rowsData)
-    )
-  }, [sort])
-
-  useEffect(() => {
-    /** avoid unnecessary data processing on first render */
-    if (firstRender.current) return
-
+  function handleSearch(searchInput: string) {
     const searchValueStartsWithPreviousValue = searchInput.startsWith(previousInput.current)
     previousInput.current = searchInput
 
-    if (searchValueStartsWithPreviousValue) {
-      setRowsData(filterData(rowsData))
-    } else {
-      setRowsData(
-        isUnsort
-          ? filterData(initialData)
-          : sortData(filterData(initialData))
-      )
-    }
-  }, [searchInput])
+    let updatedData: RowsUniqueIds<T>;
 
-  useEffect(() => {
-    firstRender.current = false
-  }, [])
+    if (searchValueStartsWithPreviousValue) {
+      updatedData = filterData(rowsData, searchInput)
+    } else {
+      updatedData = isUnsort
+        ? filterData(initialData, searchInput)
+        : sortData(filterData(initialData, searchInput), sort)
+    }
+
+    setRowsData(updatedData)
+    pagination.updatePaginationStates({ rows: updatedData, newPageIndex: 0 })
+    setSearchInput(searchInput)
+  }
+
+  function handleSort(sort: SortState<T>) {
+    const isUnsort = sort.type === "NONE"
+
+    const updatedData = isUnsort
+      ? filterData(initialData, searchInput)
+      : sortData(rowsData, sort)
+
+    setRowsData(updatedData)
+    pagination.updatePaginationStates({ rows: updatedData, newPageIndex: 0 })
+    setSort(sort)
+  }
 
   return {
     rowsData,
     sort,
-    setSort,
+    handleSort,
     searchInput,
-    setSearchInput
+    handleSearch,
+    ...pagination
   }
 }
 

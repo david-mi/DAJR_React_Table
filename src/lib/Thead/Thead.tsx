@@ -12,12 +12,12 @@ enum SORT_SWITCH {
 interface Props<T extends string> {
   columns: Column<T>[]
   sort: SortState<T>
-  setSort: Dispatch<SetStateAction<SortState<T>>>
+  handleSort: (sort: SortState<T>) => void
 }
 
 /** Display column heading */
 
-function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
+function Thead<T extends string>({ columns, handleSort, sort }: Props<T>) {
 
   /**
    * Gets called when clicking on one column head
@@ -30,7 +30,7 @@ function Thead<T extends string>({ columns, setSort, sort }: Props<T>) {
   function handleColumnHeadClick({ currentTarget }: MouseEvent) {
     const clickedColumnHead = (currentTarget as HTMLTableCellElement).dataset.column as T
 
-    setSort(
+    handleSort(
       clickedColumnHead !== sort.column
         ? { type: "ASC", column: clickedColumnHead }
         : { type: SORT_SWITCH[sort.type], column: clickedColumnHead }

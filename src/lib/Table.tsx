@@ -8,7 +8,6 @@ import Tbody from "./Tbody/Tbody"
 import Informations from "./Informations/Informations"
 import PageNavigation from "./PageNavigation/PageNavigation"
 import useTable from "./useTable"
-import usePagination from "./usePagination"
 
 export interface Props<T extends string> {
   columns: Column<T>[],
@@ -35,12 +34,9 @@ function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
   const {
     rowsData,
     sort,
-    setSort,
+    handleSort,
     searchInput,
-    setSearchInput
-  } = useTable<T>(rows)
-
-  const {
+    handleSearch,
     paginatedData,
     updatePageSize,
     paginationSize,
@@ -51,17 +47,17 @@ function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
     goToNextPage,
     goToPreviousPage,
     goToPage
-  } = usePagination<T>(rowsData, sort, searchInput)
+  } = useTable<T>(rows)
 
   const hasMultiplePages = pagesNumber > 1
 
   return (
     <div className={classNames.container}>
       <PageSelect updatePageSize={updatePageSize} className={classNames.select} />
-      <Search setSearchInput={setSearchInput} className={classNames.search} />
+      <Search handleSearch={handleSearch} className={classNames.search} />
       <div className={classNames.tableContainer}>
         <table className={classNames.table}>
-          <Thead sort={sort} setSort={setSort} columns={columns} />
+          <Thead sort={sort} handleSort={handleSort} columns={columns} />
           <Tbody rowsData={paginatedData} columns={columns} />
         </table>
       </div>
