@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react"
+import { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import type { Row } from "./types"
 import { getRandomId } from "./utils"
 
@@ -24,11 +24,16 @@ function useTable<T extends string>(rows: Row<T>[]) {
     })
   }, [])
 
+  const [rowsData, setRowsData] = useState(initialData)
   const [sort, setSort] = useState<SortState<T>>({
     type: "NONE",
     column: ""
   })
   const [searchInput, setSearchInput] = useState("")
+
+  const previousInput = useRef("")
+  const firstRender = useRef(true)
+  const isUnsort = sort.type === "NONE"
 
   /**
    * Sort datas based on parameters 
@@ -39,8 +44,6 @@ function useTable<T extends string>(rows: Row<T>[]) {
    */
 
   const sortData = useCallback((data: RowsUniqueIds<T>) => {
-    if (sort.type === "NONE") return data
-
     return [...data].sort((a, b) => {
       const [firstValue, secondValue] = sort.type === "ASC"
         ? [a[sort.column], b[sort.column]]
@@ -71,10 +74,38 @@ function useTable<T extends string>(rows: Row<T>[]) {
     })
   }, [searchInput])
 
+  useEffect(() => {
+    /** avoid unnecessary data processing on first render */
+    if (firstRender.current) return
 
-  const rowsData = useMemo<RowsUniqueIds<T>>(() => {
-    return filterData(sortData(initialData))
-  }, [sort, searchInput])
+    setRowsData(
+      isUnsort
+        ? filterData(initialData)
+        : sortData(rowsData)
+    )
+  }, [sort])
+
+  useEffect(() => {
+    /** avoid unnecessary data processing on first render */
+    if (firstRender.current) return
+
+    const searchValueStartsWithPreviousValue = searchInput.startsWith(previousInput.current)
+    previousInput.current = searchInput
+
+    if (searchValueStartsWithPreviousValue) {
+      setRowsData(filterData(rowsData))
+    } else {
+      setRowsData(
+        isUnsort
+          ? filterData(initialData)
+          : sortData(filterData(initialData))
+      )
+    }
+  }, [searchInput])
+
+  useEffect(() => {
+    firstRender.current = false
+  }, [])
 
   return {
     rowsData,
