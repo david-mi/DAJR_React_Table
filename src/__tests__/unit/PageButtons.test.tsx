@@ -1,5 +1,5 @@
 import { getNodeText, render, screen } from "@testing-library/react";
-import PageButtons, { Props } from "../../lib/PageNavigation/PageButtons/PageButtons";
+import PageButtons, { Props } from "../../lib/components/PageNavigation/PageButtons/PageButtons";
 import { vi } from "vitest";
 
 let props: Props

@@ -1,5 +1,5 @@
-import type { Column } from "../types"
-import type { RowsUniqueIds } from "../useTable"
+import type { Column } from "../../types"
+import type { RowsUniqueIds } from "../../hooks/useTable/useTable"
 import NoData from "./NoData/NoData"
 
 interface Props<T extends string> {

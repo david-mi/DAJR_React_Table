@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import SortIcon from "../../lib/Thead/SortIcon/SortIcon";
-import type { Props } from "../../lib/Thead/SortIcon/SortIcon";
+import SortIcon from "../../lib/components/Thead/SortIcon/SortIcon";
+import type { Props } from "../../lib/components/Thead/SortIcon/SortIcon";
 import type { Data } from "../../__mocks__";
 
 describe("Given i'm calling <SortIcon />", () => {

@@ -1,9 +1,8 @@
-import React from "react";
 import { getNodeText, render, screen } from "@testing-library/react";
 import { columns as mockColumns } from "../../__mocks__"
 import { vi } from "vitest";
-import Thead from "../../lib/Thead/Thead";
-import type { SortState } from "../../lib/useTable";
+import Thead from "../../lib/components/Thead/Thead";
+import type { SortState } from "../../lib/hooks/useTable/useTable";
 import type { Data } from "../../__mocks__";
 
 describe("Given i'm calling <Thead />", () => {

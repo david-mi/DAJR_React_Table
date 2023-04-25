@@ -1,13 +1,13 @@
-import type { Column, Row } from "./types"
-import { checkTableProps } from "./PropsError/checkTableProps"
-import PropsError from "./PropsError/PropsError"
-import PageSelect from "./PageSelect/PageSelect"
-import Search from "./Search/Search"
-import Thead from "./Thead/Thead"
-import Tbody from "./Tbody/Tbody"
-import Informations from "./Informations/Informations"
-import PageNavigation from "./PageNavigation/PageNavigation"
-import useTable from "./useTable"
+import type { Column, Row } from "../../types"
+import { checkTableProps } from "../PropsError/checkTableProps"
+import PropsError from "../PropsError/PropsError"
+import PageSelect from "../PageSelect/PageSelect"
+import Search from "../Search/Search"
+import Thead from "../Thead/Thead"
+import Tbody from "../Tbody/Tbody"
+import Informations from "../Informations/Informations"
+import PageNavigation from "../PageNavigation/PageNavigation"
+import useTable from "../../hooks/useTable/useTable"
 
 export interface Props<T extends string> {
   columns: Column<T>[],

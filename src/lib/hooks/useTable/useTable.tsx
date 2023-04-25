@@ -1,7 +1,7 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from "react"
-import type { Row } from "./types"
-import { getRandomId } from "./utils"
-import usePagination from "./usePagination"
+import { useState, useMemo, useCallback, useRef } from "react"
+import type { Row } from "../../types"
+import { getRandomId } from "../../utils"
+import usePagination from "../usePagination/usePagination"
 
 export interface SortState<T> {
   type: "ASC" | "DESC" | "NONE"

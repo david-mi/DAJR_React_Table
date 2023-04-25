@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import type { ChangeEvent } from "react"
-import type { RowsUniqueIds } from "./useTable"
+import type { RowsUniqueIds } from "../useTable/useTable"
 
 function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
   const [paginationSize, setPaginationSize] = useState(25)

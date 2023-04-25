@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import PageButton, { Props } from "../../lib/PageNavigation/PageButtons/PageButton/PageButton";
+import PageButton, { Props } from "../../lib/components/PageNavigation/PageButtons/PageButton/PageButton";
 import { vi } from "vitest";
 
 describe("Given i'm calling <PageButton />", () => {

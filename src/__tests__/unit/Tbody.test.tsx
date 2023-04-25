@@ -1,9 +1,9 @@
 import { getNodeText, render, screen } from "@testing-library/react";
 import { columns as mockColumns, rows as mockRows } from "../../__mocks__"
 import type { Data } from "../../__mocks__";
-import Tbody from "../../lib/Tbody/Tbody";
+import Tbody from "../../lib/components/Tbody/Tbody";
 import { getRandomId } from "../../lib/utils";
-import type { RowsUniqueIds } from "../../lib/useTable"
+import type { RowsUniqueIds } from "../../lib/hooks/useTable/useTable"
 import { getMockRowsValuesInColumnOrder } from "./utils.test";
 
 const mockRowsWithIds: RowsUniqueIds<keyof Data> = mockRows.map((row) => {

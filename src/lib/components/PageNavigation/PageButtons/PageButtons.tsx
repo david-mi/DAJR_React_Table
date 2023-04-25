@@ -1,4 +1,4 @@
-import { createArrayOfNumbers } from "../../utils"
+import { createArrayOfNumbers } from "../../../utils"
 import PageButton from "./PageButton/PageButton"
 
 export interface Props {

@@ -1,6 +1,6 @@
-import type { Column } from "../types"
-import type { Dispatch, SetStateAction, MouseEvent } from "react"
-import type { SortState } from "../useTable"
+import type { Column } from "../../types"
+import type { MouseEvent } from "react"
+import type { SortState } from "../../hooks/useTable/useTable"
 import SortIcon from "./SortIcon/SortIcon"
 
 enum SORT_SWITCH {

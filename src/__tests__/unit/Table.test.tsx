@@ -1,6 +1,6 @@
 import { expect } from "vitest";
 import { render, screen, getNodeText } from "@testing-library/react";
-import { checkTableProps, errors } from "../../lib/PropsError/checkTableProps";
+import { checkTableProps, errors } from "../../lib/components/PropsError/checkTableProps";
 import { Table } from "../../lib";
 import { columns as mockColumns, rows as mockRows } from "../../__mocks__";
 import { getMockRowsValuesInColumnOrder } from "./utils.test";

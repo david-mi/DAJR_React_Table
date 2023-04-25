@@ -1,4 +1,4 @@
-import type { SortState } from "../../useTable"
+import type { SortState } from "../../../hooks/useTable/useTable"
 
 export interface Props<T> {
   sort: SortState<T>
