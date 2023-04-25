@@ -25,6 +25,7 @@ function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
     const dataSliceStart = newPageIndex * newPaginationSize
     const dataSliceEnd = dataSliceStart + newPaginationSize
 
+    setCurrentPageIndex(newPageIndex)
     setHasNextPage(checkIfNextPageExist(rows, newPageIndex, newPaginationSize))
     setHasPreviousPage(checkIfPreviousPageExist(newPageIndex))
     setPagesNumber(getNumberOfPages(rows, newPaginationSize))
