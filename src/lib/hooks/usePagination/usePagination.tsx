@@ -11,7 +11,9 @@ function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
   const [hasPreviousPage, setHasPreviousPage] = useState(false)
   const [paginatedRows, setPaginatedRows] = useState<RowsUniqueIds<T>>([])
 
-  function updatePaginationStates({
+  /** Wrapper function to update pagination states */
+
+  function updatePagination({
     rows = rowsData,
     newPageIndex = currentPageIndex,
     newPaginationSize = paginationSize
@@ -32,32 +34,32 @@ function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
   function goToNextPage() {
     const nextPageIndex = currentPageIndex + 1
     setCurrentPageIndex(nextPageIndex)
-    updatePaginationStates({ newPageIndex: nextPageIndex })
+    updatePagination({ newPageIndex: nextPageIndex })
   }
 
   function goToPreviousPage() {
     const previousPageIndex = currentPageIndex - 1
     setCurrentPageIndex(previousPageIndex)
-    updatePaginationStates({ newPageIndex: previousPageIndex })
+    updatePagination({ newPageIndex: previousPageIndex })
   }
 
   function goToPage(pageNumber: number) {
     setCurrentPageIndex(pageNumber)
-    updatePaginationStates({ newPageIndex: pageNumber })
+    updatePagination({ newPageIndex: pageNumber })
   }
 
   function updatePageSize({ target }: ChangeEvent<HTMLSelectElement>) {
     const selectNumberValue = parseInt(target.value, 10)
 
     setPaginationSize(selectNumberValue)
-    updatePaginationStates({
+    updatePagination({
       newPaginationSize: selectNumberValue,
       newPageIndex: 0
     })
   }
 
   useEffect(() => {
-    updatePaginationStates()
+    updatePagination()
   }, [])
 
   return {
@@ -71,7 +73,7 @@ function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
     goToNextPage,
     goToPreviousPage,
     goToPage,
-    updatePaginationStates
+    updatePagination
   }
 }
 

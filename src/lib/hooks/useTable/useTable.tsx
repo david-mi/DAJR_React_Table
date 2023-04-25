@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react"
+import { useState, useMemo, useRef } from "react"
 import type { Row } from "../../types"
 import { getRandomId } from "../../utils"
 import usePagination from "../usePagination/usePagination"
@@ -38,6 +38,12 @@ function useTable<T extends string>(rows: Row<T>[]) {
   const previousInput = useRef("")
   const isUnsort = sort.type === "NONE"
 
+  /**
+   * Manage states related to filtering
+   * 
+   * @param searchInput search input
+   */
+
   function handleSearch(searchInput: string) {
     const searchValueStartsWithPreviousValue = searchInput.startsWith(previousInput.current)
     previousInput.current = searchInput
@@ -53,9 +59,15 @@ function useTable<T extends string>(rows: Row<T>[]) {
     }
 
     setRowsData(updatedData)
-    pagination.updatePaginationStates({ rows: updatedData, newPageIndex: 0 })
+    pagination.updatePagination({ rows: updatedData, newPageIndex: 0 })
     setSearchInput(searchInput)
   }
+
+  /**
+   * Manage states related to sorting
+   * 
+   * @param sort sort options
+   */
 
   function handleSort(sort: SortState<T>) {
     const isUnsort = sort.type === "NONE"
@@ -65,7 +77,7 @@ function useTable<T extends string>(rows: Row<T>[]) {
       : sortData(rowsData, sort)
 
     setRowsData(updatedData)
-    pagination.updatePaginationStates({ rows: updatedData, newPageIndex: 0 })
+    pagination.updatePagination({ rows: updatedData, newPageIndex: 0 })
     setSort(sort)
   }
 

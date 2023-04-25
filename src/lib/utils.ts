@@ -6,6 +6,12 @@ export function getRandomId() {
   return (stringDate + randomStringNumber).replace(/\./g, "")
 }
 
+/**
+ * Create an array of length {@link length}, starting from {@link start}
+ * 
+ * - if {@link start} is missing, starting from 1
+ */
+
 export function createArrayOfNumbers(length: number, start: number = 1) {
   const pageNumbers = []
 
