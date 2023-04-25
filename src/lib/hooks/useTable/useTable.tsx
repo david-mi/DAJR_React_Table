@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useRef } from "react"
 import type { Row } from "../../types"
 import { getRandomId } from "../../utils"
 import usePagination from "../usePagination/usePagination"
+import { sortData, filterData } from "./helpers"
 
 export interface SortState<T> {
   type: "ASC" | "DESC" | "NONE"
@@ -18,6 +19,7 @@ export type RowsUniqueIds<T extends string> = ({
  */
 
 function useTable<T extends string>(rows: Row<T>[]) {
+
   /** Initial rows data with added unique id */
   const initialData = useMemo<RowsUniqueIds<T>>(() => {
     return rows.map((row) => {
@@ -35,45 +37,6 @@ function useTable<T extends string>(rows: Row<T>[]) {
   const pagination = usePagination(rowsData)
   const previousInput = useRef("")
   const isUnsort = sort.type === "NONE"
-
-  /**
-   * Sort datas based on parameters 
-   * 
-   * - if {@link sort.type} is equal to "NONE" returns immediately
-   * - if {@link sort.type} is equal to "ASC", sort in ascending order
-   * - if {@link sort.type} is equal to "DESC", sort in descending order
-   */
-
-  const sortData = useCallback((data: RowsUniqueIds<T>, sort: SortState<T>) => {
-    return [...data].sort((a, b) => {
-      const [firstValue, secondValue] = sort.type === "ASC"
-        ? [a[sort.column], b[sort.column]]
-        : [b[sort.column], a[sort.column]]
-
-      return typeof firstValue === "string" && typeof secondValue === "string"
-        ? firstValue.localeCompare(secondValue, undefined, { sensitivity: "base", numeric: true })
-        : (firstValue as number) - (secondValue as number)
-    })
-  }, [sort])
-
-  /**
-   * Filter datas based on parameters
-   * 
-   * - if {@link searchInput} is included in one of the rows, filters returns true
-   * - uniqueId property is being ignored during search
-   */
-
-  const filterData = useCallback((data: RowsUniqueIds<T>, searchInput: string) => {
-    return data.filter(({ uniqueId, ...row }) => {
-      return Object
-        .values<string | number>(row)
-        .find((value) => {
-          return typeof value === "number"
-            ? String(value).includes(searchInput)
-            : value.toLowerCase().includes(searchInput)
-        })
-    })
-  }, [searchInput])
 
   function handleSearch(searchInput: string) {
     const searchValueStartsWithPreviousValue = searchInput.startsWith(previousInput.current)

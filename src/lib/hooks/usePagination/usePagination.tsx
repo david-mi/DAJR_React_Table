@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import type { ChangeEvent } from "react"
 import type { RowsUniqueIds } from "../useTable/useTable"
+import { getNumberOfPages, checkIfNextPageExist, checkIfPreviousPageExist } from "./helpers"
 
 function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
   const [paginationSize, setPaginationSize] = useState(25)
@@ -53,19 +54,6 @@ function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
       newPaginationSize: selectNumberValue,
       newPageIndex: 0
     })
-  }
-
-  function checkIfNextPageExist(data: RowsUniqueIds<T>, currentPageIndex: number, paginationSize: number) {
-    const nextPageStartInData = (currentPageIndex + 1) * paginationSize
-    return data.length > nextPageStartInData
-  }
-
-  function checkIfPreviousPageExist(currentPageIndex: number) {
-    return currentPageIndex - 1 >= 0
-  }
-
-  function getNumberOfPages(data: RowsUniqueIds<T>, paginationSize: number) {
-    return Math.ceil(data.length / paginationSize)
   }
 
   useEffect(() => {
