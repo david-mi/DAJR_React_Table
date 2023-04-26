@@ -9,14 +9,16 @@ import type { SortState } from "./useTable"
  * - if {@link sort.type} is equal to "DESC", sort in descending order
  */
 
-export function sortData<T extends string>(data: RowsUniqueIds<T>, sort: SortState<T>) {
+export function sortData<T extends string>(data: RowsUniqueIds<T>, { column, type }: SortState<T>) {
+  const collaborator = new Intl.Collator("en", { sensitivity: "base", numeric: true })
+
   return [...data].sort((a, b) => {
-    const [firstValue, secondValue] = sort.type === "ASC"
-      ? [a[sort.column], b[sort.column]]
-      : [b[sort.column], a[sort.column]]
+    const [firstValue, secondValue] = type === "ASC"
+      ? [a[column], b[column]]
+      : [b[column], a[column]]
 
     return typeof firstValue === "string" && typeof secondValue === "string"
-      ? firstValue.localeCompare(secondValue, undefined, { sensitivity: "base", numeric: true })
+      ? collaborator.compare(firstValue, secondValue)
       : (firstValue as number) - (secondValue as number)
   })
 }
@@ -29,13 +31,27 @@ export function sortData<T extends string>(data: RowsUniqueIds<T>, sort: SortSta
  */
 
 export function filterData<T extends string>(data: RowsUniqueIds<T>, searchInput: string) {
-  return data.filter(({ uniqueId, ...row }) => {
-    return Object
-      .values<string | number>(row)
-      .find((value) => {
-        return typeof value === "number"
-          ? String(value).includes(searchInput)
-          : value.toLowerCase().includes(searchInput)
-      })
+  return data.filter((row) => {
+    let key: keyof typeof row
+
+    for (key in row) {
+      if (key === "uniqueId") continue
+
+      if (
+        typeof row[key] === "string" &&
+        (row[key] as string).toLowerCase().indexOf(searchInput) !== -1
+      ) {
+        return true
+      }
+
+      if (
+        typeof row[key] === "number" &&
+        String(row[key]).indexOf(searchInput) !== -1
+      ) {
+        return true
+      }
+    }
+
+    return false
   })
 }
