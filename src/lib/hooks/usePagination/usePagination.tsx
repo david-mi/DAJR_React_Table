@@ -4,7 +4,7 @@ import type { RowsUniqueIds } from "../useTable/useTable"
 import { getNumberOfPages, checkIfNextPageExist, checkIfPreviousPageExist } from "./helpers"
 
 function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
-  const [paginationSize, setPaginationSize] = useState(25)
+  const [paginationSize, setPaginationSize] = useState(10)
   const [currentPageIndex, setCurrentPageIndex] = useState(0)
   const [pagesNumber, setPagesNumber] = useState(getNumberOfPages(rowsData, paginationSize))
   const [hasNextPage, setHasNextPage] = useState(checkIfNextPageExist(rowsData, currentPageIndex, paginationSize))

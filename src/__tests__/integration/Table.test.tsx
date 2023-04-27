@@ -4,6 +4,8 @@ import { columns as mockColumns, rows as mockRows } from "../../__mocks__"
 import type { Data } from "../../__mocks__";
 import { Table } from "../../lib";
 
+const defaultMockRowsLength = 10
+
 beforeEach(() => {
   render(<Table columns={mockColumns} rows={mockRows} />)
 })
@@ -13,7 +15,6 @@ describe("Given I want to sort rows", () => {
   let getCellsDataFromTargetColumn: (columnPosition: number) => string[]
   let firstColumnHead: HTMLElement
   let firstColumnAccessor: keyof Data
-
 
   beforeAll(() => {
     getRowsAccessorData = function (accessor: keyof Data) {
@@ -40,6 +41,7 @@ describe("Given I want to sort rows", () => {
       fireEvent.click(firstColumnHead)
 
       const rowsAccessorDataFromFirstColumnInAscendingOrder = getRowsAccessorData(firstColumnAccessor).sort()
+      rowsAccessorDataFromFirstColumnInAscendingOrder.length = defaultMockRowsLength
       const firstColumnTableRows = getCellsDataFromTargetColumn(0)
 
       expect(firstColumnTableRows).toEqual(rowsAccessorDataFromFirstColumnInAscendingOrder)
@@ -52,6 +54,7 @@ describe("Given I want to sort rows", () => {
       fireEvent.click(firstColumnHead)
 
       const rowsAccessorDataFromFirstColumnInDescendingOrder = getRowsAccessorData(firstColumnAccessor).sort((a, b) => b.localeCompare(a))
+      rowsAccessorDataFromFirstColumnInDescendingOrder.length = defaultMockRowsLength
       const firstColumnTableRows = getCellsDataFromTargetColumn(0)
 
       expect(firstColumnTableRows).toEqual(rowsAccessorDataFromFirstColumnInDescendingOrder)
@@ -66,6 +69,7 @@ describe("Given I want to sort rows", () => {
 
       const firstColumnTableRows = getCellsDataFromTargetColumn(0)
       const rowsAccessorDataFromFirstColumnInitial = getRowsAccessorData(firstColumnAccessor)
+      rowsAccessorDataFromFirstColumnInitial.length = 10
 
       expect(firstColumnTableRows).toEqual(rowsAccessorDataFromFirstColumnInitial)
     })
@@ -81,6 +85,7 @@ describe("Given I want to sort rows", () => {
 
       const secondColumnAccessor: keyof Data = mockColumns[1].accessor
       const rowsAccessorDataFromSecondColumnInAscendingOrder = getRowsAccessorData(secondColumnAccessor).sort()
+      rowsAccessorDataFromSecondColumnInAscendingOrder.length = defaultMockRowsLength
       const secondColumnTableRows = getCellsDataFromTargetColumn(1)
 
       expect(secondColumnTableRows).toEqual(rowsAccessorDataFromSecondColumnInAscendingOrder)
@@ -116,7 +121,7 @@ describe("Given I want to filter rows based on input search value", () => {
       fireEvent.change(inputElement, { target: { value: "" } })
 
       const rowsElements = screen.getAllByTestId("tbody-row")
-      expect(rowsElements.length).toBe(mockRows.length)
+      expect(rowsElements.length).toBe(defaultMockRowsLength)
     })
   })
 })
