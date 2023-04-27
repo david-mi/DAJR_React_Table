@@ -9,10 +9,11 @@ export interface SortState<T> {
   column: T | ""
 }
 
-export type RowsUniqueIds<T extends string> = ({
-  /** uniqueId generated id */
+export type RowUniqueId<T extends string> = {
   uniqueId: string
-} & Row<T>)[]
+} & { [key in T]: string }
+
+export type RowsUniqueIds<T extends string> = RowUniqueId<T>[]
 
 /**
  * Custom Hook to handle initial rows data, data sorting and data filtering
@@ -23,7 +24,13 @@ function useTable<T extends string>(rows: Row<T>[]) {
   /** Initial rows data with added unique id */
   const initialData = useMemo<RowsUniqueIds<T>>(() => {
     return rows.map((row) => {
-      return { ...row, uniqueId: getRandomId() }
+      for (const key in row) {
+        if (typeof row[key] === "number") {
+          row[key] = String(row[key])
+        }
+      }
+
+      return { uniqueId: getRandomId(), ...row } as RowUniqueId<T>
     })
   }, [])
 

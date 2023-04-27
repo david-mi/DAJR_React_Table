@@ -3,11 +3,19 @@ import { columns as mockColumns, rows as mockRows } from "../../__mocks__"
 import type { Data } from "../../__mocks__";
 import Tbody from "../../lib/components/Tbody/Tbody";
 import { getRandomId } from "../../lib/utils";
-import type { RowsUniqueIds } from "../../lib/hooks/useTable/useTable"
+import type { RowsUniqueIds, RowUniqueId } from "../../lib/hooks/useTable/useTable"
 import { getMockRowsValuesInColumnOrder } from "./utils.test";
 
 const mockRowsWithIds: RowsUniqueIds<keyof Data> = mockRows.map((row) => {
-  return { ...row, uniqueId: getRandomId() }
+  let key: keyof Data
+
+  for (key in row) {
+    if (typeof row[key] === "number") {
+      row[key] = String(row[key])
+    }
+  }
+
+  return { uniqueId: getRandomId(), ...row } as RowUniqueId<keyof Data>
 })
 
 describe("Given i'm calling <Tbody />", () => {

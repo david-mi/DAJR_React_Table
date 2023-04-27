@@ -10,16 +10,14 @@ import type { SortState } from "./useTable"
  */
 
 export function sortData<T extends string>(data: RowsUniqueIds<T>, { column, type }: SortState<T>) {
-  const collaborator = new Intl.Collator("en", { sensitivity: "base", numeric: true })
+  const collaborator = new Intl.Collator(undefined, { sensitivity: "base", numeric: true })
 
   return [...data].sort((a, b) => {
     const [firstValue, secondValue] = type === "ASC"
-      ? [a[column], b[column]]
-      : [b[column], a[column]]
+      ? [a[column as T], b[column as T]]
+      : [b[column as T], a[column as T]]
 
-    return typeof firstValue === "string" && typeof secondValue === "string"
-      ? collaborator.compare(firstValue, secondValue)
-      : (firstValue as number) - (secondValue as number)
+    return collaborator.compare(firstValue, secondValue)
   })
 }
 
@@ -37,17 +35,7 @@ export function filterData<T extends string>(data: RowsUniqueIds<T>, searchInput
     for (key in row) {
       if (key === "uniqueId") continue
 
-      if (
-        typeof row[key] === "string" &&
-        (row[key] as string).toLowerCase().indexOf(searchInput) !== -1
-      ) {
-        return true
-      }
-
-      if (
-        typeof row[key] === "number" &&
-        String(row[key]).indexOf(searchInput) !== -1
-      ) {
+      if (row[key].toLowerCase().indexOf(searchInput) !== -1) {
         return true
       }
     }

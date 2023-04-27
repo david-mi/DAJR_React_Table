@@ -29,7 +29,7 @@ function Tbody<T extends string>({ rowsData, columns }: Props<T>) {
             {columns.map(({ accessor }) => {
               return (
                 <td key={accessor} data-testid="tbody-cell">
-                  {dataValue[accessor]}
+                  {dataValue[accessor as Exclude<T, "uniqueId">]}
                 </td>
               )
             })}
