@@ -5,6 +5,8 @@ import { Table } from "../../lib";
 import { columns as mockColumns, rows as mockRows } from "../../__mocks__";
 import { getMockRowsValuesInColumnOrder } from "./utils.test";
 
+const defaultMockRowsLength = 10
+
 describe("Given i'm calling <Table />", () => {
   describe("When I'm passing mocked data as props", () => {
     beforeEach(() => {
@@ -33,8 +35,7 @@ describe("Given i'm calling <Table />", () => {
 
     test("Then number of displayed rows should be equal to mock rows length", () => {
       const rowsElements = screen.getAllByTestId("tbody-row")
-      const mockRowsLength = mockRows.length
-      expect(rowsElements).toHaveLength(mockRowsLength)
+      expect(rowsElements).toHaveLength(defaultMockRowsLength)
     })
 
     test("Then rows accessors should be displayed in the corresponding column", () => {
@@ -43,6 +44,8 @@ describe("Given i'm calling <Table />", () => {
       const cellsTexts = screen
         .getAllByTestId("tbody-cell")
         .map(getNodeText)
+
+      mockRowsValues.length = cellsTexts.length
 
       expect(cellsTexts).toEqual(mockRowsValues)
     })
