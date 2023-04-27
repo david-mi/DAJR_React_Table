@@ -87,7 +87,9 @@ const PageNavigation = (props: Props) => {
 
   return (
     <div className={className}>
+      <label htmlFor="goToPage">Go to:</label>
       <input
+        id="goToPage"
         type="number"
         onChange={handleInput}
         defaultValue={currentPageNumber}
