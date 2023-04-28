@@ -7,7 +7,7 @@ interface Props<T extends string> {
   filteredDataLength: number,
   paginationSize: number,
   paginatedData: RowsUniqueIds<T>,
-  initialData: Row<T>[]
+  initialDataLength: number
   className?: string
 }
 
@@ -20,7 +20,7 @@ function Informations<T extends string>(props: Props<T>) {
     filteredDataLength,
     paginationSize,
     paginatedData,
-    initialData,
+    initialDataLength,
     className
   } = props
 
@@ -29,12 +29,13 @@ function Informations<T extends string>(props: Props<T>) {
     ? 1 + (currentPageIndex * paginationSize)
     : 0
   const paginationScreenEnd = currentPageIndex * paginationSize + paginatedDataLength
-  const initialDataLength = new Intl.NumberFormat("en-US").format(initialData.length)
+  const formatedInitialDataLength = new Intl.NumberFormat("en-US").format(initialDataLength)
+  const formatedFilterLength = new Intl.NumberFormat("en-US").format(filteredDataLength)
 
   return (
     <div className={className}>
-      <span>Showing {paginationScreenStart} to {paginationScreenEnd} of {filteredDataLength} entries </span>
-      {searchInput && <span>(filtered from {initialDataLength} total entries)</span>}
+      <span>Showing {paginationScreenStart} to {paginationScreenEnd} of {formatedFilterLength} entries </span>
+      {searchInput && <span>(filtered from {formatedInitialDataLength} total entries)</span>}
     </div>
   )
 }

@@ -71,7 +71,7 @@ function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
         filteredDataLength={rowsData.length}
         paginationSize={paginationSize}
         paginatedData={paginatedData}
-        initialData={rows}
+        initialDataLength={rows.length}
         className={classNames.informations}
       />
       {hasMultiplePages && (
