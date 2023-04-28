@@ -150,6 +150,37 @@ describe("Given i'm using incorrect Table props", () => {
           }
         ]
       }
+    },
+    {
+      description: "When classNames type is incorrect",
+      expectedError: new Error(errors.classNames.notObject),
+      props: {
+        rows: mockRows,
+        columns: mockColumns,
+        classNames: ""
+      }
+    },
+    {
+      description: "When classNames property doesn't exist",
+      expectedError: new Error(errors.classNames.notExistingPropertyName("notExistingProps")),
+      props: {
+        rows: mockRows,
+        columns: mockColumns,
+        classNames: { container: "container", notExistingProps: "notExistingProps" }
+      }
+    },
+    {
+      description: "When classNames property value is not a string",
+      expectedError: new Error(errors.classNames.notString("search")),
+      props: {
+        rows: mockRows,
+        columns: mockColumns,
+        classNames: {
+          container: "container",
+          search: ["search"],
+          table: "table"
+        }
+      }
     }
   ]
 

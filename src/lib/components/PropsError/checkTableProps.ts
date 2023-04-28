@@ -3,10 +3,11 @@
  * @returns error message if the check is incorrect
  */
 
-export function checkTableProps({ columns, rows }: any): Error | void {
+export function checkTableProps({ columns, rows, classNames }: any): Error | void {
   try {
     throwIfColumnsIsInvalid(columns)
     throwIfRowsIsInvalid({ columns, rows })
+    throwIfClassNamesAreInvalid(classNames)
   } catch (error) {
     if (error instanceof Error)
       return error
@@ -32,6 +33,11 @@ export const errors = {
       incorrectValue: (rowProperty: string) => `${rowProperty} value must be a string or a number`
     }
   },
+  classNames: {
+    notObject: "classNames props must be an object",
+    notExistingPropertyName: (property: string) => `Property ${property} does not exist on className`,
+    notString: (property: string) => `Value of classNames.${property} must be a string`
+  }
 }
 
 /** Checks if columns props passed to Table is valid */
@@ -93,5 +99,35 @@ function throwIfRowsIsInvalid({ rows, columns }: { rows: any[], columns: any[] }
       }
     }
   })
+}
+
+/** Checks if classNames props passed to Table is valid */
+
+function throwIfClassNamesAreInvalid(classNames: any) {
+  if (classNames === undefined) return
+
+  if (classNames.constructor !== Object) {
+    throw new Error(errors.classNames.notObject)
+  }
+
+  const expectedClassNames = {
+    container: "container",
+    tableContainer: "tableContainer",
+    table: "table",
+    select: "select",
+    search: "search",
+    informations: "informations",
+    navigation: "navigation"
+  }
+
+  for (const key in classNames) {
+    if (key in expectedClassNames === false) {
+      throw new Error(errors.classNames.notExistingPropertyName(key))
+    }
+
+    if (typeof classNames[key] !== "string") {
+      throw new Error(errors.classNames.notString(key))
+    }
+  }
 }
 

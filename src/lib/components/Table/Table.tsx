@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import type { Column, Row } from "../../types"
 import { checkTableProps } from "../PropsError/checkTableProps"
 import PropsError from "../PropsError/PropsError"
@@ -26,7 +27,10 @@ export interface Props<T extends string> {
 /** Table with options */
 
 function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
-  const propsError = checkTableProps({ columns, rows })
+  const propsError = useMemo(() => {
+    return checkTableProps({ columns, rows, classNames })
+  }, [])
+
   if (propsError) {
     return <PropsError error={propsError.message} />
   }
