@@ -1,4 +1,4 @@
-# david-mi react-table v2.6.1
+# david-mi react-table v2.6.4
 
 ## Description
 
@@ -6,19 +6,26 @@ A react package to create a table with integrated functionalities
 
 ## Functionalities
 ### Sorting data
-When clicking on column heading, you can arrange data in 3 ways
+**When clicking on a column heading, you can arrange data in 3 ways**
 - Sorting in ascending order
 - Sorting in descending order
 - Unsort (Will show unsorted data)
-- Filter rows based on input search
-- Handle pagination size with select menu
-- View data Informations (pages entries, total filtered entries, total entries)
+
+### Filtering data
+**When entering text on the search input, only rows that includes wrote texte in any fields will be displayed**
+- Sorting state is being kept after filtering
+
+### Paginating data
+**A pagination system is being used to navigate through the pages**
 - Go to next page
 - Go to previous page
 - Go to page specified in page input
 
-### Filtering data
-When entering text on the search input, only rows that includes wrote texte in any fields will be displayed
+### Retrieving data information
+**A section is made to display informations about the data being processed**
+- You can visualize from where to where the data is being displayed in the current page
+- When filtering data, you can see the size of filtered entries
+- You can the the number of total entries, before processing
 
 ## Installation
 ```bash
@@ -67,13 +74,17 @@ const rows = [
 
 function App() {
   return (
-    <Table columns={columns} rows={rows} />
+    <Table 
+    columns={columns}
+     rows={rows}
+     classNames={{
+      container: "table__container",
+      navigation: "navigation__container"
+     }}
+      />
   );
 }
 ```
-
-## Result
-<img src="https://i.imgur.com/3Biz1Xb.gif" >
 
 ## Types
 ```ts
@@ -84,6 +95,20 @@ interface Column<T> {
 
 type Row<T extends string> = {
   [key in T]: string | number
+}
+
+interface Props<T extends string> {
+  columns: Column<T>[],
+  rows: Row<T>[]
+  classNames?: {
+    container?: string
+    tableContainer?: string
+    table?: string
+    select?: string
+    search?: string
+    informations?: string
+    navigation?: string
+  }
 }
 ```
 

@@ -13,6 +13,7 @@ import useTable from "../../hooks/useTable/useTable"
 export interface Props<T extends string> {
   columns: Column<T>[],
   rows: Row<T>[]
+  /** You can apply custom css classes to make styling easier */
   classNames?: {
     container?: string
     tableContainer?: string
