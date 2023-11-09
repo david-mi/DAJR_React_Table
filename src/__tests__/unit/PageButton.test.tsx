@@ -11,7 +11,7 @@ describe("Given i'm calling <PageButton />", () => {
       changePageCallback = vi.fn()
 
       props = {
-        changePage: vi.fn((pageToGo) => changePageCallback),
+        changePage: vi.fn(() => changePageCallback),
         currentPageNumber: 1,
         pageToGo: 3
       }

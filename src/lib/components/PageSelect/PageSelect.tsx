@@ -16,7 +16,7 @@ const PageSelect = ({ updatePageSize, className }: Props) => {
       name="paginationSize"
       id="paginationSize"
       onChange={updatePageSize}
-      defaultValue={10}
+      defaultValue={defaultOptionValue}
       className={className}
     >
       {pagesSizes.map((size) => {

@@ -14,7 +14,7 @@ type RowsUniqueIdsPartial<T extends keyof Data> = ({
  * - convert numbers values to strings before pushing them
  */
 
-export function getMockRowsValuesInColumnOrder<T>(rows: RowsUniqueIdsPartial<keyof Data>, columns: Column<keyof Data>[]) {
+export function getMockRowsValuesInColumnOrder(rows: RowsUniqueIdsPartial<keyof Data>, columns: Column<keyof Data>[]) {
   return rows.reduce<Array<string>>((acc, { uniqueId, ...row }) => {
     columns.forEach(({ accessor }) => {
       let rowAccessor = row[accessor]

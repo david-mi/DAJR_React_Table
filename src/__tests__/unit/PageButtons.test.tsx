@@ -9,7 +9,7 @@ beforeAll(() => {
   changePageCallback = vi.fn()
 
   props = {
-    changePage: vi.fn((pageToGo) => changePageCallback),
+    changePage: vi.fn(() => changePageCallback),
     currentPageNumber: 1,
     lastPageNumber: 6
   }

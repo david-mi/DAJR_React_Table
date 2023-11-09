@@ -1,5 +1,4 @@
 import type { RowsUniqueIds } from "../../hooks/useTable/useTable"
-import type { Row } from "../../types"
 
 interface Props<T extends string> {
   currentPageIndex: number,
