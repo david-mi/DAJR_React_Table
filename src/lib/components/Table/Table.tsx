@@ -1,3 +1,4 @@
+import styles from "./table.module.css"
 import { useMemo } from "react"
 import type { Column, Row } from "../../types"
 import { checkTableProps } from "../PropsError/checkTableProps"
@@ -57,11 +58,11 @@ function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
   const hasMultiplePages = pagesNumber > 1
 
   return (
-    <div className={classNames.container}>
-      <PageSelect updatePageSize={updatePageSize} className={classNames.select} />
-      <Search handleSearch={handleSearch} className={classNames.search} />
-      <div className={classNames.tableContainer}>
-        <table className={classNames.table}>
+    <div className={`${classNames.container} ${styles.container}`}>
+      <PageSelect updatePageSize={updatePageSize} className={`${classNames.select} ${styles.select}`} />
+      <Search handleSearch={handleSearch} className={`${classNames.search} ${styles.search}`} />
+      <div className={`${classNames.tableContainer} ${styles.tableContainer}`}>
+        <table className={`${classNames.table} ${styles.table}`}>
           <Thead sort={sort} handleSort={handleSort} columns={columns} />
           <Tbody rowsData={paginatedData} columns={columns} />
         </table>
@@ -73,7 +74,7 @@ function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
         paginationSize={paginationSize}
         paginatedData={paginatedData}
         initialDataLength={rows.length}
-        className={classNames.informations}
+        className={`${classNames.informations} ${styles.informations}`}
       />
       {hasMultiplePages && (
         <PageNavigation
@@ -84,10 +85,10 @@ function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
           goToPage={goToPage}
           currentPageIndex={currentPageIndex}
           pagesNumber={pagesNumber}
-          className={classNames.navigation}
+          className={`${classNames.navigation} ${styles.navigation}`}
         />
       )}
-    </div>
+    </div >
   )
 }
 

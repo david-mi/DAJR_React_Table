@@ -1,0 +1,189 @@
+.container * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding-block: clamp(30px, 4vw, 3rem);
+  padding-inline: clamp(15px, 2vw, 3rem);
+  display: grid;
+  row-gap: 2rem;
+  align-items: center;
+  grid-template-areas:
+    "select search"
+    "table table"
+    "informations navigation"
+  ;
+}
+
+.container :is(button, select) {
+  cursor: pointer;
+}
+
+.container :is(select, input) {
+  border: solid 1px black;
+  border-radius: 0px;
+  height: 100%;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.container :is(select, input):hover {
+  background-color: rgba(199, 199, 199, 0.24);
+}
+
+.select {
+  grid-area: select;
+  justify-self: flex-start;
+  min-width: 5rem;
+  text-align: center;
+}
+
+.select option {
+  height: 2.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.search {
+  grid-area: search;
+  justify-self: flex-end;
+  height: 2.5rem;
+  font-weight: bold;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search input {
+  padding: 5px;
+}
+
+.tableContainer {
+  overflow-x: auto;
+  grid-area: table;
+}
+
+.table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table :is(tr, td, th) {
+  border: 1px solid black;
+  padding-inline: 1rem;
+  height: 3rem;
+}
+
+.table th {
+  background-color: rgb(0, 8, 31);
+  color: white;
+  font-weight: normal;
+  border-color: white;
+  cursor: pointer;
+  transition: 100ms;
+}
+
+.table th div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.table th div:first-child div {
+  font-size: 0.8rem;
+
+}
+
+.table th div:first-child p {
+  white-space: nowrap;
+}
+
+.table th [data-active] {
+  color: rgba(228, 228, 228, 0.452);
+}
+
+.table th [data-active='true'] {
+  color: white;
+}
+
+.table td {
+  transition: 100ms;
+}
+
+.table th:hover {
+  background-color: #93ad18;
+}
+
+.table tr:hover {
+  background-color: rgba(0, 8, 31, 0.836);
+  color: white;
+}
+
+.informations {
+  grid-area: informations;
+  font-weight: bold;
+  justify-self: flex-start;
+}
+
+.navigation {
+  grid-area: navigation;
+  justify-self: flex-end;
+  display: flex;
+  gap: 1rem;
+  font-weight: bold;
+  height: 2.5rem;
+}
+
+.navigation label {
+  align-self: center;
+}
+
+.navigation input {
+  max-width: 5rem;
+  text-align: center;
+}
+
+.navigation button {
+  background-color: rgb(0, 8, 31);
+  color: white;
+  width: 5rem;
+  transition: 300ms;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+.navigation button:disabled {
+  pointer-events: none;
+  background-color: rgb(146, 146, 146);
+}
+
+.navigation span {
+  display: flex;
+  gap: 1rem;
+}
+
+.navigation span span {
+  align-self: flex-end;
+  font-size: 1.2rem;
+}
+
+.navigation span button {
+  align-self: center;
+  height: 100%;
+  width: fit-content;
+  padding-inline: 1rem;
+}
+
+.navigation span button[data-current="true"] {
+  background-color: #93ad18;
+}
+
+.navigation button:hover {
+  background-color: rgba(0, 8, 31, 0.836);
+}

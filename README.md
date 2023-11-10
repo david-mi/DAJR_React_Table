@@ -1,4 +1,4 @@
-# david-mi react-table v2.6.4
+# david-mi react-table v2.9.0
 
 ## Description
 
@@ -111,4 +111,9 @@ interface Props<T extends string> {
   }
 }
 ```
+
+## CodeSandbox demos
+
+### Javascript : [Link](https://codesandbox.io/p/sandbox/david-mi-react-table-js-example-z2wf75?file=%2Fsrc%2FApp.js%3A1%2C1)
+### TypeScript : [Link](https://codesandbox.io/p/sandbox/david-mi-react-table-ts-example-ngj5wm?file=%2Fsrc%2FApp.tsx%3A11%2C20)
 
