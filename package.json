@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && cp ./src/lib/package.json ./dist/lib && cp ./README.md ./dist/lib",
+    "build-lib": "tsc && vite build --mode lib",
     "test": "vitest --reporter verbose",
     "preview": "vite preview"
   },
   "dependencies": {
     "employees-generator": "^1.0.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-static-copy": "^0.17.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -21,7 +22,7 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "jsdom": "^21.1.1",
-    "typescript": "^4.9.3",
+    "typescript": "^5.2.2",
     "vite": "^4.2.0",
     "vitest": "^0.30.1"
   }
