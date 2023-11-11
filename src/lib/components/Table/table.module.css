@@ -120,7 +120,7 @@
   background-color: var(--tlib-color-hover);
 }
 
-.table tr:not(:first-child):hover {
+.table tr:hover {
   background-color: var(--tlib-color-hover);
   color: white;
 }
