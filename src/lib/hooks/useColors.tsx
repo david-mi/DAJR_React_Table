@@ -9,6 +9,7 @@ function useColors(colors?: Colors) {
     ["--tlib-color-button-disabled", colors?.buttonDisabled || "rgb(146, 146, 146)"],
     ["--tlib-color-sort-arrow", colors?.sortArrow || "rgba(228, 228, 228, 0.452)"],
     ["--tlib-color-sort-arrow-active", colors?.sortArrowActive || "white"],
+    ["--tlib-color-head", colors?.head || "rgb(0, 8, 31)"]
   ]
 
   useLayoutEffect(() => {

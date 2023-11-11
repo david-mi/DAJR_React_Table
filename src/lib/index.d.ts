@@ -24,6 +24,7 @@ export interface Colors {
   buttonDisabled?: string
   sortArrow?: string
   sortArrowActive?: string
+  head?: string
 }
 
 export interface TableProps<T extends string> {

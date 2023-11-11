@@ -152,7 +152,8 @@ function throwIfColorsAreInvalid(colors: any) {
     buttonCurrentPage: "buttonCurrentPage",
     buttonDisabled: "buttonDisabled",
     sortArrow: "sortArrow",
-    sortArrowActive: "sortArrowActive"
+    sortArrowActive: "sortArrowActive",
+    head: "head"
   }
 
   for (const key in colors) {

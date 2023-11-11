@@ -24,4 +24,5 @@ export interface Colors {
   buttonDisabled?: string
   sortArrow?: string
   sortArrowActive?: string
+  head?: string
 }
