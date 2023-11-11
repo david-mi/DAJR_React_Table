@@ -1,7 +1,7 @@
 {
   "name": "david-mi-react-table",
   "private": false,
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "React table package",
   "type": "module",
   "main": "index.js",
