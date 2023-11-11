@@ -54,11 +54,11 @@ function Table<T extends string>({ columns, rows, classNames = {}, colors }: Pro
   const hasMultiplePages = pagesNumber > 1
 
   return (
-    <div className={`${classNames.container} ${styles.container}`}>
-      <PageSelect updatePageSize={updatePageSize} className={`${classNames.select} ${styles.select}`} />
-      <Search handleSearch={handleSearch} className={`${classNames.search} ${styles.search}`} />
-      <div className={`${classNames.tableContainer} ${styles.tableContainer}`}>
-        <table className={`${classNames.table} ${styles.table}`}>
+    <div className={`${styles.container} ${classNames.container}`}>
+      <PageSelect updatePageSize={updatePageSize} className={`${styles.select} ${classNames.select}`} />
+      <Search handleSearch={handleSearch} className={`${styles.search} ${classNames.search}`} />
+      <div className={`${styles.tableContainer} ${classNames.tableContainer}`}>
+        <table className={`${styles.table} ${classNames.table}`}>
           <Thead sort={sort} handleSort={handleSort} columns={columns} />
           <Tbody rowsData={paginatedData} columns={columns} />
         </table>
@@ -70,7 +70,7 @@ function Table<T extends string>({ columns, rows, classNames = {}, colors }: Pro
         paginationSize={paginationSize}
         paginatedData={paginatedData}
         initialDataLength={rows.length}
-        className={`${classNames.informations} ${styles.informations}`}
+        className={`${styles.informations} ${classNames.informations}`}
       />
       {hasMultiplePages && (
         <PageNavigation
@@ -81,7 +81,7 @@ function Table<T extends string>({ columns, rows, classNames = {}, colors }: Pro
           goToPage={goToPage}
           currentPageIndex={currentPageIndex}
           pagesNumber={pagesNumber}
-          className={`${classNames.navigation} ${styles.navigation}`}
+          className={`${styles.navigation} ${classNames.navigation}`}
         />
       )}
     </div >
