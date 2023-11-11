@@ -10,33 +10,29 @@ import Tbody from "../Tbody/Tbody"
 import Informations from "../Informations/Informations"
 import PageNavigation from "../PageNavigation/PageNavigation"
 import useTable from "../../hooks/useTable/useTable"
+import type { ClassNames, Colors } from "../../types"
+import useColors from "../../hooks/useColors"
 
 export interface Props<T extends string> {
   columns: Column<T>[],
   rows: Row<T>[]
   /** You can apply custom css classes to make styling easier */
-  classNames?: {
-    container?: string
-    tableContainer?: string
-    table?: string
-    select?: string
-    search?: string
-    informations?: string
-    navigation?: string
-  }
+  classNames?: ClassNames
+  colors?: Colors
 }
 
 /** Table with options */
 
-function Table<T extends string>({ columns, rows, classNames = {} }: Props<T>) {
+function Table<T extends string>({ columns, rows, classNames = {}, colors }: Props<T>) {
   const propsError = useMemo(() => {
-    return checkTableProps({ columns, rows, classNames })
+    return checkTableProps({ columns, rows, classNames, colors })
   }, [])
 
   if (propsError) {
     return <PropsError error={propsError.message} />
   }
 
+  useColors(colors)
   const {
     rowsData,
     sort,

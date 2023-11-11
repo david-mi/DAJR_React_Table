@@ -3,11 +3,12 @@
  * @returns error message if the check is incorrect
  */
 
-export function checkTableProps({ columns, rows, classNames }: any): Error | void {
+export function checkTableProps({ columns, rows, classNames, colors }: any): Error | void {
   try {
     throwIfColumnsIsInvalid(columns)
     throwIfRowsIsInvalid({ columns, rows })
     throwIfClassNamesAreInvalid(classNames)
+    throwIfColorsAreInvalid(colors)
   } catch (error) {
     if (error instanceof Error)
       return error
@@ -37,6 +38,11 @@ export const errors = {
     notObject: "classNames props must be an object",
     notExistingPropertyName: (property: string) => `Property ${property} does not exist on className`,
     notString: (property: string) => `Value of classNames.${property} must be a string`
+  },
+  colors: {
+    notObject: "colors props must be an object",
+    notExistingPropertyName: (property: string) => `Property ${property} does not exist on colors`,
+    notString: (property: string) => `Value of colors.${property} must be a string`
   }
 }
 
@@ -130,4 +136,34 @@ function throwIfClassNamesAreInvalid(classNames: any) {
     }
   }
 }
+
+/** Checks if colors props passed to Table is valid */
+
+function throwIfColorsAreInvalid(colors: any) {
+  if (colors === undefined) return
+
+  if (colors.constructor !== Object) {
+    throw new Error(errors.colors.notObject)
+  }
+
+  const expectedColors = {
+    hover: "hover",
+    button: "button",
+    buttonCurrentPage: "buttonCurrentPage",
+    buttonDisabled: "buttonDisabled",
+    sortArrow: "sortArrow",
+    sortArrowActive: "sortArrowActive"
+  }
+
+  for (const key in colors) {
+    if (key in expectedColors === false) {
+      throw new Error(errors.colors.notExistingPropertyName(key))
+    }
+
+    if (typeof colors[key] !== "string") {
+      throw new Error(errors.colors.notString(key))
+    }
+  }
+}
+
 
