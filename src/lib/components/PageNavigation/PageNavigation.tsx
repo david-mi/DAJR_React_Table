@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef } from "react"
 import PageButtons from "./PageButtons/PageButtons"
+import styles from "./pageNavigation.module.css"
 
 interface Props {
   hasPreviousPage: boolean
@@ -87,21 +88,26 @@ const PageNavigation = (props: Props) => {
 
   return (
     <div className={className}>
-      <label htmlFor="goToPage">Go to:</label>
-      <input
-        id="goToPage"
-        type="number"
-        onChange={handleInput}
-        defaultValue={currentPageNumber}
-        ref={inputRef}
-      />
-      <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
-      <PageButtons
-        changePage={changePage}
-        currentPageNumber={currentPageNumber}
-        lastPageNumber={lastPageNumber}
-      />
-      <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
+      <div className={styles.inputContainer}>
+        <label htmlFor="goToPage">Go to:</label>
+        <input
+          id="goToPage"
+          type="number"
+          onChange={handleInput}
+          defaultValue={currentPageNumber}
+          ref={inputRef}
+        />
+      </div>
+      <div className={styles.buttonsContainer} data-testid="page-buttons">
+        <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
+
+        <PageButtons
+          changePage={changePage}
+          currentPageNumber={currentPageNumber}
+          lastPageNumber={lastPageNumber}
+        />
+        <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
+      </div>
     </div>
   )
 }

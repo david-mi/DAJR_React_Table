@@ -1,0 +1,16 @@
+.inputContainer {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.buttonsContainer span {
+  align-self: flex-end;
+  font-size: 1.2rem;
+}

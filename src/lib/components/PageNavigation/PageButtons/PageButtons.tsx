@@ -31,15 +31,15 @@ function PageButtons({ changePage, currentPageNumber, lastPageNumber }: Props) {
 
   if (hasLessThanSevenPages) {
     return (
-      <span data-testid="page-buttons">
+      <>
         {createButtons(lastPageNumber)}
-      </span>
+      </>
     )
   }
 
   if (currentPageNumber < 5) {
     return (
-      <span data-testid="page-buttons">
+      <>
         {createButtons(5)}
         <span>...</span>
         <PageButton
@@ -47,13 +47,13 @@ function PageButtons({ changePage, currentPageNumber, lastPageNumber }: Props) {
           pageToGo={lastPageNumber}
           changePage={changePage}
         />
-      </span>
+      </>
     )
   }
 
   if (hasMoreThanThreePagesLeft) {
     return (
-      <span data-testid="page-buttons">
+      <>
         <PageButton
           currentPageNumber={currentPageNumber}
           pageToGo={firstPageNumber}
@@ -68,12 +68,12 @@ function PageButtons({ changePage, currentPageNumber, lastPageNumber }: Props) {
           pageToGo={lastPageNumber}
           changePage={changePage}
         />
-      </span>
+      </>
     )
   }
 
   return (
-    <span data-testid="page-buttons">
+    <>
       <PageButton
         currentPageNumber={currentPageNumber}
         pageToGo={firstPageNumber}
@@ -81,7 +81,7 @@ function PageButtons({ changePage, currentPageNumber, lastPageNumber }: Props) {
       />
       <span>...</span>
       {createButtons(5, lastPageNumber - 4)}
-    </span>
+    </>
   )
 }
 
