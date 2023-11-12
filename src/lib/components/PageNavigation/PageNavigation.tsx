@@ -99,14 +99,14 @@ const PageNavigation = (props: Props) => {
         />
       </div>
       <div className={styles.buttonsContainer} data-testid="page-buttons">
-        <button disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
+        <button className={styles.previousButton} disabled={!hasPreviousPage} onClick={goToPreviousPage}>Previous</button>
 
         <PageButtons
           changePage={changePage}
           currentPageNumber={currentPageNumber}
           lastPageNumber={lastPageNumber}
         />
-        <button disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
+        <button className={styles.nextButton} disabled={!hasNextPage} onClick={goToNextPage}>Next</button>
       </div>
     </div>
   )

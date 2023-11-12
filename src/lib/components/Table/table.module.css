@@ -220,12 +220,6 @@
   .container .navigation > :nth-child(1) {
     justify-self: flex-start;
   }
-
-  .container .navigation input {
-    width: 100%;
-    max-width: 80%;
-    display: grid;
-  }
 }
 
 @media (width < 500px) {

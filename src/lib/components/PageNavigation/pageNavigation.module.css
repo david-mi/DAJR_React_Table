@@ -4,6 +4,10 @@
   flex: 1;
 }
 
+.inputContainer input {
+  min-width: 5rem;
+}
+
 .buttonsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -13,4 +17,8 @@
 .buttonsContainer span {
   align-self: flex-end;
   font-size: 1.2rem;
+}
+
+.buttonsContainer :is(.previousButton, .nextButton) {
+  width: 6rem;
 }
