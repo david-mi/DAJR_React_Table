@@ -1,4 +1,4 @@
-# david-mi react-table v3.3.0
+# david-mi-react-table v3.3.1
 
 ## Description
 
@@ -12,7 +12,7 @@ A react package to create a table with integrated functionalities
 - default (non sorted, like it was originally)
 
 ### Filtering data
-**When writing text on the search input, only rows who have cells that includes written will be displayed**
+**When writing text on the search input, only rows who have cells that includes written text will be displayed**
 - Sorting state is being kept after filtering
 
 ### Paginating data

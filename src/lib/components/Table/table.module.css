@@ -16,6 +16,7 @@
     "table table"
     "footer footer"
   ;
+  transition: 300ms;
 }
 
 .container :is(button, select) {
@@ -130,7 +131,7 @@
   background-color: var(--tlib-color-hover);
 }
 
-.table tr:hover {
+.table tr:not(thead tr):hover {
   background-color: var(--tlib-color-hover);
   color: white;
 }
