@@ -8,17 +8,27 @@
   padding-block: clamp(30px, 4vw, 3rem);
   padding-inline: clamp(15px, 2vw, 3rem);
   display: grid;
-  row-gap: 2rem;
+  gap: 2rem;
   align-items: center;
+  width: fit-content;
   grid-template-areas:
     "select search"
     "table table"
-    "informations navigation"
+    "footer footer"
   ;
 }
 
 .container :is(button, select) {
   cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  grid-area: footer;
+  justify-content: space-between;
 }
 
 .container :is(select, input) {
@@ -142,6 +152,7 @@
 
 .navigation label {
   align-self: center;
+  white-space: nowrap;
 }
 
 .navigation input {
@@ -166,6 +177,7 @@
 .navigation span {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .navigation span span {
@@ -175,9 +187,13 @@
 
 .navigation span button {
   align-self: center;
-  height: 100%;
+  height: 2.5rem;
   width: fit-content;
   padding-inline: 1rem;
+}
+
+.navigation button {
+  height: 2.5rem;
 }
 
 .navigation button[data-current="true"] {
@@ -186,4 +202,61 @@
 
 .navigation button:hover {
   background-color: var(--tlib-color-hover);
+}
+
+@media (width < 650px) {
+  .container {
+    grid-template-areas:
+      "select search"
+      "table table"
+      "footer footer"
+    ;
+
+    justify-items: stretch;
+  }
+
+  .container .search {
+    justify-self: stretch;
+  }
+
+  .container .search input {
+    flex: 1;
+  }
+
+  .container .navigation {
+    justify-self: center;
+  }
+
+  .container .navigation {
+    justify-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .container .navigation > :nth-child(1) {
+    justify-self: flex-start;
+  }
+
+  .container .navigation input {
+    width: 100%;
+    max-width: 80%;
+    display: grid;
+  }
+}
+
+@media (width < 500px) {
+  .container {
+    grid-template-areas:
+      "select"
+      "search"
+      "table"
+      "footer"
+    ;
+    align-items: stretch;
+  }
+
+  .container :is(input, select) {
+    width: 100%;
+  }
 }

@@ -9,7 +9,7 @@ interface Props {
 
 const PageSelect = ({ updatePageSize, className }: Props) => {
   const pagesSizes = [10, 25, 50, 100]
-  const defaultOptionValue = pagesSizes[1]
+  const defaultOptionValue = pagesSizes[0]
 
   return (
     <select

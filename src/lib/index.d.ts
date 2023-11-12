@@ -16,6 +16,7 @@ export interface ClassNames {
   search?: string
   informations?: string
   navigation?: string
+  footer?: string
 }
 export interface Colors {
   hover?: string,

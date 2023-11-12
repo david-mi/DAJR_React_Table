@@ -63,27 +63,29 @@ function Table<T extends string>({ columns, rows, classNames = {}, colors }: Pro
           <Tbody rowsData={paginatedData} columns={columns} />
         </table>
       </div>
-      <Informations
-        currentPageIndex={currentPageIndex}
-        searchInput={searchInput}
-        filteredDataLength={rowsData.length}
-        paginationSize={paginationSize}
-        paginatedData={paginatedData}
-        initialDataLength={rows.length}
-        className={`${styles.informations} ${classNames.informations}`}
-      />
-      {hasMultiplePages && (
-        <PageNavigation
-          hasNextPage={hasNextPage}
-          hasPreviousPage={hasPreviousPage}
-          goToNextPage={goToNextPage}
-          goToPreviousPage={goToPreviousPage}
-          goToPage={goToPage}
+      <div className={styles.footer}>
+        <Informations
           currentPageIndex={currentPageIndex}
-          pagesNumber={pagesNumber}
-          className={`${styles.navigation} ${classNames.navigation}`}
+          searchInput={searchInput}
+          filteredDataLength={rowsData.length}
+          paginationSize={paginationSize}
+          paginatedData={paginatedData}
+          initialDataLength={rows.length}
+          className={`${styles.informations} ${classNames.informations}`}
         />
-      )}
+        {hasMultiplePages && (
+          <PageNavigation
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            goToNextPage={goToNextPage}
+            goToPreviousPage={goToPreviousPage}
+            goToPage={goToPage}
+            currentPageIndex={currentPageIndex}
+            pagesNumber={pagesNumber}
+            className={`${styles.navigation} ${classNames.navigation}`}
+          />
+        )}
+      </div>
     </div >
   )
 }

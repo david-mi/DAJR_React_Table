@@ -123,7 +123,8 @@ function throwIfClassNamesAreInvalid(classNames: any) {
     select: "select",
     search: "search",
     informations: "informations",
-    navigation: "navigation"
+    navigation: "navigation",
+    footer: "footer"
   }
 
   for (const key in classNames) {
