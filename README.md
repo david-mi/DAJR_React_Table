@@ -1,4 +1,4 @@
-# david-mi-react-table v3.5.2
+# david-mi-react-table v3.5.3
 
 ## Description
 
@@ -70,7 +70,7 @@ function App() {
 
 ### Result 
 
-![img](https://i.imgur.com/6AYXwpM.gif)
+![img](https://i.imgur.com/w9AQaED.gif)
 
 ## Typescript Example
 
@@ -89,7 +89,7 @@ interface Game {
 }
 
 const columns: Column<keyof Game>[] = [
-  { title: "Game", accessor: "title" },
+  { title: "Title", accessor: "title" },
   { title: "Rating (/20)", accessor: "rating" },
 ];
 
