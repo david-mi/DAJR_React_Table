@@ -12,7 +12,7 @@ export interface ClassNames {
   container?: string
   tableContainer?: string
   table?: string
-  select?: string
+  pageSelect?: string
   search?: string
   informations?: string
   navigation?: string

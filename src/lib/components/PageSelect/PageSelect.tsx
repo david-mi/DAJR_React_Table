@@ -12,17 +12,20 @@ const PageSelect = ({ updatePageSize, className }: Props) => {
   const defaultOptionValue = pagesSizes[0]
 
   return (
-    <select
-      name="paginationSize"
-      id="paginationSize"
-      onChange={updatePageSize}
-      defaultValue={defaultOptionValue}
-      className={className}
-    >
-      {pagesSizes.map((size) => {
-        return <option key={size} value={size}>{size}</option>
-      })}
-    </select>
+    <div className={className}>
+      <label htmlFor="paginationSize" className={className}>Show</label>
+      <select
+        name="paginationSize"
+        id="paginationSize"
+        onChange={updatePageSize}
+        defaultValue={defaultOptionValue}
+      >
+        {pagesSizes.map((size) => {
+          return <option key={size} value={size}>{size}</option>
+        })}
+      </select>
+      <span>entries</span>
+    </div>
   )
 }
 

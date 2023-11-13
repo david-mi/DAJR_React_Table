@@ -44,14 +44,24 @@
   background-color: rgba(199, 199, 199, 0.24);
 }
 
-.select {
+.pageSelect {
   grid-area: select;
   justify-self: flex-start;
-  min-width: 5rem;
   text-align: center;
+  font-weight: bold;
 }
 
-.select option {
+.pageSelect select {
+  min-width: 5rem;
+}
+
+.pageSelect {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.pageSelect option {
   height: 2.5rem;
   font-size: 1rem;
   font-weight: bold;
@@ -230,7 +240,7 @@
   }
 }
 
-@media (width < 500px) {
+@media (width < 650px) {
   .container {
     grid-template-areas:
       "select"

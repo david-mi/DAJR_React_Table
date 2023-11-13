@@ -120,7 +120,7 @@ function throwIfClassNamesAreInvalid(classNames: any) {
     container: "container",
     tableContainer: "tableContainer",
     table: "table",
-    select: "select",
+    pageSelect: "select",
     search: "search",
     informations: "informations",
     navigation: "navigation",

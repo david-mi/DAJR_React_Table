@@ -55,7 +55,7 @@ function Table<T extends string>({ columns, rows, classNames = {}, colors }: Pro
 
   return (
     <div className={`${styles.container} ${classNames.container}`}>
-      <PageSelect updatePageSize={updatePageSize} className={`${styles.select} ${classNames.select}`} />
+      <PageSelect updatePageSize={updatePageSize} className={`${styles.pageSelect} ${classNames.pageSelect}`} />
       <Search handleSearch={handleSearch} className={`${styles.search} ${classNames.search}`} />
       <div className={`${styles.tableContainer} ${classNames.tableContainer}`}>
         <table className={`${styles.table} ${classNames.table}`}>

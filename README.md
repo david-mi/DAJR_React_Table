@@ -1,4 +1,4 @@
-# david-mi-react-table v3.5.3
+# david-mi-react-table v3.6.0
 
 ## Description
 
@@ -158,10 +158,11 @@ function App() {
 | container | string | main container               | false |
 | tableContainer | string | table wrapper | false |
 | table | string | table element | false |
-| select | string | select page menu on top left| false |
+| pageSelect | string | select page menu on top left| false |
 | search | string | search menu on top right | false |
 | informations | string | informations part on bottom left | false |
 | navigation | string | navigation menu on bottom right | false |
+| footer | string | informations and navigation menus wrapper | false |
 
 ### colors
 
@@ -190,7 +191,7 @@ interface ClassNames {
   container?: string
   tableContainer?: string
   table?: string
-  select?: string
+  pageSelect?: string
   search?: string
   informations?: string
   navigation?: string
