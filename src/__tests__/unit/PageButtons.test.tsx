@@ -66,9 +66,9 @@ describe("Given i have 7 or more pages", () => {
       test("Then it should should display the first 5 pages buttons, then ..., then button 7", () => {
         props.lastPageNumber = 7
         props.currentPageNumber = 1
-        render(<PageButtons {...props} />)
+        const { container } = render(<PageButtons {...props} />)
 
-        const pageButtonsWrapper = screen.getByTestId("page-buttons")
+        const pageButtonsWrapper = container
         const expectedPageButtonsWrapperText = ["1", "2", "3", "4", "5", "...", "7"]
         const arrayPageButtonsWrapper = Array.from(pageButtonsWrapper.children)
         const pageButtonsWrapperTextArray = Array
@@ -84,9 +84,9 @@ describe("Given i have 7 or more pages", () => {
       test("Then it should display the first page button, then ..., then last 5 pages buttons", () => {
         props.lastPageNumber = 7
         props.currentPageNumber = 7
-        render(<PageButtons {...props} />)
+        const { container } = render(<PageButtons {...props} />)
 
-        const pageButtonsWrapper = screen.getByTestId("page-buttons")
+        const pageButtonsWrapper = container
         const expectedPageButtonsWrapperText = ["1", "...", "3", "4", "5", "6", "7"]
         const arrayPageButtonsWrapper = Array.from(pageButtonsWrapper.children)
         const pageButtonsWrapperTextArray = Array
@@ -105,9 +105,9 @@ describe("Given i have 7 or more pages", () => {
       test("Then it should display the first 5 pages buttons, then ..., then page 500 button", () => {
         props.lastPageNumber = 500
         props.currentPageNumber = 1
-        render(<PageButtons {...props} />)
+        const { container } = render(<PageButtons {...props} />)
 
-        const pageButtonsWrapper = screen.getByTestId("page-buttons")
+        const pageButtonsWrapper = container
         const expectedPageButtonsWrapperText = ["1", "2", "3", "4", "5", "...", "500"]
         const arrayPageButtonsWrapper = Array.from(pageButtonsWrapper.children)
         const pageButtonsWrapperTextArray = Array
@@ -123,9 +123,9 @@ describe("Given i have 7 or more pages", () => {
       test("Then it should display page 1 button, then ..., then page, 9, 10, 11 buttons then page 500 button", () => {
         props.lastPageNumber = 500
         props.currentPageNumber = 10
-        render(<PageButtons {...props} />)
+        const { container } = render(<PageButtons {...props} />)
 
-        const pageButtonsWrapper = screen.getByTestId("page-buttons")
+        const pageButtonsWrapper = container
         const expectedPageButtonsWrapperText = ["1", "...", "9", "10", "11", "...", "500"]
         const arrayPageButtonsWrapper = Array.from(pageButtonsWrapper.children)
         const pageButtonsWrapperTextArray = Array
