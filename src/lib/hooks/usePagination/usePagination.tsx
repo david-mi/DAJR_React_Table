@@ -9,7 +9,7 @@ function usePagination<T extends string>(rowsData: RowsUniqueIds<T>) {
   const [pagesNumber, setPagesNumber] = useState(getNumberOfPages(rowsData, paginationSize))
   const [hasNextPage, setHasNextPage] = useState(checkIfNextPageExist(rowsData, currentPageIndex, paginationSize))
   const [hasPreviousPage, setHasPreviousPage] = useState(false)
-  const [paginatedRows, setPaginatedRows] = useState<RowsUniqueIds<T>>([])
+  const [paginatedRows, setPaginatedRows] = useState<RowsUniqueIds<T>>(rowsData.slice(0, 10))
 
   /** Wrapper function to update pagination states */
 

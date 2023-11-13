@@ -1,4 +1,4 @@
-# david-mi-react-table v3.6.0
+# david-mi-react-table v3.6.1
 
 ## Description
 
