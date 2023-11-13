@@ -193,9 +193,18 @@
   background-color: var(--tlib-color-button-current-page);
 }
 
-.navigation button:hover {
-  background-color: var(--tlib-color-hover);
+@media (hover: hover) {
+  .navigation button:hover {
+    background-color: var(--tlib-color-hover);
+  }
 }
+
+@media (hover: none) {
+  .navigation button:not([data-current="true"]):hover {
+    background-color: var(--tlib-color-hover);
+  }
+}
+
 
 @media (width < 650px) {
   .container {
